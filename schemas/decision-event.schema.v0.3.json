@@ -1,0 +1,356 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://signity.local/schemas/transition-engine/decision-event.v0.3.json",
+  "title": "Signity Transition Engine Decision Event v0.3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_id",
+    "event_kind",
+    "status",
+    "primary_object_id",
+    "title",
+    "occurred_at",
+    "recorded_at",
+    "changes",
+    "rationale",
+    "proposed_by",
+    "evidence_refs",
+    "model_run_refs",
+    "integrity",
+    "decision_type"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.3"
+    },
+    "event_id": {
+      "type": "string",
+      "minLength": 8
+    },
+    "display_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "event_kind": {
+      "const": "decision"
+    },
+    "decision_type": {
+      "type": "string",
+      "enum": [
+        "create",
+        "change",
+        "end",
+        "revert",
+        "supersede"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "proposed",
+        "approved",
+        "rejected",
+        "revoked",
+        "superseded"
+      ]
+    },
+    "primary_object_id": {
+      "type": "string",
+      "minLength": 4
+    },
+    "affected_object_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "approved_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "effective_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "changes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "before",
+          "after"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^/"
+          },
+          "before": {},
+          "after": {},
+          "change_note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "rationale": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summary"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "facts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "options_considered": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "human_value_judgments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "tradeoffs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "confidence": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "decision_question": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "revisit_triggers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        }
+      }
+    },
+    "proposed_by": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "approved_by": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "model_run_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "expected_outcome": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "summary": {
+          "type": "string"
+        },
+        "review_due_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "success_metrics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        }
+      }
+    },
+    "supersedes_event_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "corrects_event_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "canonicalization",
+        "content_hash"
+      ],
+      "properties": {
+        "algorithm": {
+          "const": "sha256"
+        },
+        "canonicalization": {
+          "type": "string",
+          "minLength": 1
+        },
+        "previous_event_hash": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "content_hash": {
+          "type": "string",
+          "pattern": "^(pending|[a-f0-9]{64})$"
+        }
+      }
+    },
+    "signatures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "signer_id",
+          "algorithm",
+          "signature"
+        ],
+        "properties": {
+          "signer_id": {
+            "type": "string"
+          },
+          "algorithm": {
+            "type": "string"
+          },
+          "signed_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "signature": {
+            "type": "string"
+          }
+        }
+      },
+      "default": []
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "approved"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "approved_at",
+          "approved_by"
+        ],
+        "properties": {
+          "approved_by": {
+            "minItems": 1
+          },
+          "integrity": {
+            "properties": {
+              "content_hash": {
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -3,10 +3,10 @@
 
 ## 1. 開始手順
 
-1. Private Repository `signity-transition-engine` を作る
+1. Private Repository `signity-transition-engine`を作る
 2. このパッケージの内容をリポジトリ直下へコピーする
 3. Gitで初回コミットする
-4. Codexアプリまたは Codex CLI でリポジトリを開く
+4. CodexアプリまたはCodex CLIでリポジトリを開く
 5. 最初はコードを書かせず、設計レビューのみを依頼する
 
 ## 2. 最初のCodexプロンプト

@@ -21,9 +21,22 @@ docs/decisions/YYYY/MM/DE-YYYYMMDD-NNN-<slug>.md
 
 ## 索引
 
-| Display ID | 日付 | 種別 | 内容 |
-| --- | --- | --- | --- |
-| [DE-20260728-001](2026/07/DE-20260728-001-establish-doc-hierarchy.md) | 2026-07-28 | create | Signity のドキュメント階層を確立し、蓄積運用を開始する |
+| Display ID | 日付 | 種別 | 内容 | 状態 |
+| --- | --- | --- | --- | --- |
+| [DE-20260710-001](2026/07/DE-20260710-001-versioning-focus-event-centered.md) | 2026-07-10 | change | バージョン管理の焦点を git-centered から event-centered へ | approved |
+| [DE-20260710-002](2026/07/DE-20260710-002-capture-checkpoint-interval.md) | 2026-07-10 | change | 音声対話のチェックポイント間隔を 8 分に定める | approved |
+| [DE-20260710-003](2026/07/DE-20260710-003-rename-to-transition-engine.md) | 2026-07-10 | change | プロジェクト名称を AI Company から Signity Transition Engine へ | approved |
+| [DE-20260728-001](2026/07/DE-20260728-001-establish-doc-hierarchy.md) | 2026-07-28 | create | Signity のドキュメント階層を確立し、蓄積運用を開始する | **draft** |
+
+DE-20260710-001〜003 は `signity-transition-engine-docs-v0.3.zip` からの取り込みです。
+旧表示 ID（`de_aa0001` / `de_bb0001` / `de_cc0001`）から改名しましたが、内容は 1 バイトも変えていません。
+対応表は [EV-20260728-002](../evidence/2026/07/EV-20260728-002-transition-engine-docs-v0.3-bundle.md) にあります。
+
+## 未解決の矛盾
+
+DE-20260710-003 の到達点が、v0.2 系の資料では `Signity`、v0.3 系では `Signity Transition Engine` と
+食い違っています。詳細は [EV-20260728-002](../evidence/2026/07/EV-20260728-002-transition-engine-docs-v0.3-bundle.md) の「発見した矛盾」を参照してください。
+独断で修正せず、決定として解消してください。
 
 ## Decision Type
 

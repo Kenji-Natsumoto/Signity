@@ -142,10 +142,14 @@ journal/ → evidence/ → decisions/ → architecture/ product/ domain/
 
 ## 未完了事項
 
-1. `signity-transition-engine-docs-v0.3.zip` から
-   `schemas/decision-event.schema.v0.3.json` と
-   `seed/sample.de_product_rename.v0.3.yaml` を取り込む
-2. `signity_ui_wireframe_ja_bundle.zip` の取り込み要否を判断する
-3. `docs/product/concept-v0.1.md` と `docs/domain/decision-object-0001.md` を作成する
+1. ~~`signity-transition-engine-docs-v0.3.zip` の取り込み~~
+   → 完了。10 ファイルを SHA-256 照合のうえ取り込み（[EV-20260728-002](../../../evidence/2026/07/EV-20260728-002-transition-engine-docs-v0.3-bundle.md)）
+2. ~~`docs/product/concept-v0.1.md` と `docs/domain/decision-object-0001.md`~~
+   → 完了。バンドルの正本を取り込み
+3. `signity_ui_wireframe_ja_bundle.zip`（約 10 MB）の取り込み要否を判断する
 4. `canonical-json-v1` を実装し、本 Event の `content_hash` を計算する
-5. 本 Event を承認し、`status` を `approved`、`approved_at` を記入する
+5. EV-20260728-002 が記録した矛盾 3 件を、決定として解消する
+   - プロジェクト名称の到達点（`Signity` か `Signity Transition Engine` か）
+   - `de-bb0001` の `before` 値（`null` か `ad-hoc` か）
+   - v0.2 アーキテクチャ v0.2 のハッシュ付き正本を作り直すか
+6. 本 Event を承認し、`status` を `approved`、`approved_at` を記入する

@@ -38,8 +38,17 @@ Signity/
 │   ├── journal/         # 日次ログ（未整理の素材・観測）
 │   └── development/     # 開発手順・ハンドオフ・運用
 ├── schemas/             # JSON Schema / バリデーション規則
+├── scripts/             # 検証スクリプト
 ├── seed/                # サンプル・シードデータ
 └── templates/           # 各ドキュメント種別のひな形
+```
+
+## 整合性の検証
+
+取り込んだ正本が改変されていないことを確認できます。
+
+```sh
+./scripts/verify-manifest.sh
 ```
 
 ## 中核概念

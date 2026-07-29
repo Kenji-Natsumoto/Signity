@@ -29,6 +29,11 @@ docs/evidence/YYYY/MM/EV-YYYYMMDD-NNN-<slug>.md
 | Display ID | 日付 | 種別 | 内容 |
 | --- | --- | --- | --- |
 | [EV-20260728-001](2026/07/EV-20260728-001-drive-design-documents.md) | 2026-07-28 | reference | Google Drive 上の Signity 設計文書一式 |
+| [EV-20260728-002](2026/07/EV-20260728-002-transition-engine-docs-v0.3-bundle.md) | 2026-07-28 | snapshot | Transition Engine 文書バンドル v0.3（SHA-256 照合済み・矛盾 3 件を記録） |
+
+`EV-20260728-002-manifest-v0.3.md` は、バンドル同梱の `MANIFEST.md` をそのまま保存した
+ハッシュ台帳です。EV-20260728-002 の添付資料として扱い、書き換えないでください。
+再検証は `./scripts/verify-manifest.sh` で行えます。
 
 ## 注意
 

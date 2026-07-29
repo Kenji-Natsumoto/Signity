@@ -40,7 +40,7 @@ Decision Objectは対象を表す。現在状態は承認済みイベント列�
 
 追記専用のイベント封筒。承認後は内容を変更しない。
 
-`event_kind` は最低限、次を扱う。
+`event_kind`は最低限、次を扱う。
 
 1. `decision`: 方針、選択、コミットメントを承認した
 2. `observation`: 外部事実や新しい証拠を確認した
@@ -96,7 +96,7 @@ current_state:
 
 ### 3.2 Structured state
 
-単一の `Concept` や `Prototype` だけで表さず、複数の状態軸へ分ける。
+単一の`Concept`や`Prototype`だけで表さず、複数の状態軸へ分ける。
 
 ```yaml
 state:
@@ -187,8 +187,8 @@ MVPでは承認済みLedgerへの書き込み確定は人間のみが行う。
 
 1. canonical JSONを生成
 2. ハッシュ対象外フィールドを除外
-3. SHA-256で `content_hash` を計算
-4. `previous_event_hash` を保存
+3. SHA-256で`content_hash`を計算
+4. `previous_event_hash`を保存
 5. 承認者IDと承認時刻を記録
 6. 後続版でデジタル署名を追加
 
@@ -236,7 +236,7 @@ recorded_at: 2026-07-10T16:16:00+09:00
 
 ### Decision Event
 
-Schemaの正本は `schemas/decision-event.schema.v0.3.json` とする。
+Schemaの正本は`schemas/decision-event.schema.v0.3.json`とする。
 
 ---
 

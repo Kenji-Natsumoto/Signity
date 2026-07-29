@@ -4,11 +4,12 @@
 
 ## Decision Object 一覧
 
-| Display ID | 種別 | 名称 | 状態 |
+| Display ID | 種別 | 名称 | 定義 |
 | --- | --- | --- | --- |
-| DO-20260710-001 | project | Signity Transition Engine | concept |
+| DO-0001 | project | Signity Transition Engine | [`decision-object-0001.md`](decision-object-0001.md) |
 
-（`docs/decisions/` の Event から投影される内容です。Current State を手入力しないでください。）
+`decision-object-0001.md` は `signity-transition-engine-docs-v0.3.zip` からの取り込み正本です
+（SHA-256 `f05c180e…104b880c`、[EV-20260728-002](../evidence/2026/07/EV-20260728-002-transition-engine-docs-v0.3-bundle.md)）。
 
 ## 置くもの
 
@@ -23,6 +24,15 @@
 - `strategy`
 - `product`
 - `organization`
+
+## まだ Object 化されていないもの
+
+v0.2 アーキテクチャ 9 章は、次を別 Decision Object に分ける余地があると指摘しています。
+
+- `Policy: GPT Live Decision Capture`（チェックポイント運用。現在は DO-0001 の属性として扱われている）
+- `Architecture Object`（バージョン管理方針。同上）
+
+分割するかどうかは決定が必要です。
 
 ## 注意
 
