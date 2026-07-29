@@ -10,10 +10,19 @@
 | `architecture/` | 設計・アーキテクチャの確定文書 | 検討途中のメモ | バージョンを上げて新規追加。過去版は残す |
 | `product/` | プロダクト定義・コンセプト・スコープ | 実装詳細 | バージョンを上げて新規追加 |
 | `domain/` | ドメインモデル、Decision Object の定義 | 一時的な議論 | 対象ごとに追記・更新可 |
-| `decisions/` | 承認済み Decision Event | 未承認の提案 | **編集不可**（訂正は Correction Event） |
+| `decisions/` | 承認済み Decision Event（人間向け） | 未承認の提案 | **編集不可**（訂正は Correction Event） |
 | `evidence/` | 意思決定の根拠となった一次資料 | 加工・要約した解釈 | **編集不可**（スナップショットのため） |
 | `journal/` | 日次ログ、未整理の観測・素材 | 確定した仕様 | 当日中は追記可。翌日以降は追記のみ |
 | `development/` | 開発手順、ハンドオフ、運用ルール | 設計思想そのもの | 随時更新可 |
+
+`docs/` の外にある関連ディレクトリ:
+
+| ディレクトリ | 置くもの |
+| --- | --- |
+| [`ledger/events/`](../ledger/) | 承認済み Decision Event の機械可読な正本（追記専用・ハッシュチェーン） |
+| [`ledger/pending/`](../ledger/) | Draft Event（承認待ち） |
+| [`tools/signity/`](../tools/) | Ledger の参照実装 |
+| `schemas/` | JSON Schema |
 
 情報の流れは常に一方向です。
 
@@ -22,10 +31,14 @@ journal/ (素材・観測)
    ↓  候補として抽出
 evidence/ (根拠として固定)
    ↓  人間が承認
-decisions/ (Decision Event として封印)
+ledger/pending/ → ledger/events/ (Decision Event として封印・ハッシュチェーン接続)
+   ↓  同内容を人間向けに記述
+decisions/
    ↓  投影
 architecture/ product/ domain/ (確定文書へ反映)
 ```
+
+Current State は `./scripts/signity state` で投影します。手で書きません。
 
 ## 2. 命名規則
 
@@ -104,10 +117,36 @@ ISO 8601 とタイムゾーンを必須にします。
 
 例: `2026-07-28T15:30:00+09:00`
 
-## 6. やってはいけないこと
+## 6. 承認と追記の手順
+
+Decision Event を承認したら、機械可読な正本を Ledger へ追記します。
+
+```sh
+# 1. Draft を書く（ひな形から）
+cp templates/decision-event.md docs/decisions/2026/07/DE-YYYYMMDD-NNN-<slug>.md
+# 対応する JSON を ledger/pending/DE-YYYYMMDD-NNN.json に作る
+
+# 2. Schema 適合を確認する
+./scripts/signity validate ledger/pending/DE-YYYYMMDD-NNN.json
+
+# 3. 人間が承認する
+#    status を approved にし、approved_at と approved_by を記入する
+
+# 4. Ledger へ追記する（previous_event_hash と content_hash が自動で確定する）
+./scripts/signity append ledger/pending/DE-YYYYMMDD-NNN.json
+
+# 5. 検証する
+./scripts/signity verify
+```
+
+`append` は `status: approved` 以外を拒否します。AI が承認済みにしてはいけません。
+
+## 7. やってはいけないこと
 
 - 承認済み Decision Event のファイルを編集・削除する
+- `ledger/events/` のファイルを編集・削除する。連番を振り直す
 - `journal/` の過去日を書き換える
-- Current State を手入力で書く
+- Current State を手入力で書く（`./scripts/signity state` で投影する）
+- `canonical-json-v1` の規則を変更する（凍結済み。変更は v2 として別定義）
 - 会話ログをそのまま仕様書として扱う
 - 本番データや秘密情報を `seed/` に入れる

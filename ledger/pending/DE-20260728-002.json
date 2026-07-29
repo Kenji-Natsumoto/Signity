@@ -1,0 +1,98 @@
+{
+  "affected_object_ids": [],
+  "approved_at": null,
+  "approved_by": [],
+  "changes": [
+    {
+      "after": "docs/architecture/canonical-json-v1.md",
+      "before": null,
+      "change_note": "architecture v0.3 6.2 節が名称のみ定めていた正規化方式を、規則として確定した",
+      "path": "/integrity/canonicalization_spec"
+    },
+    {
+      "after": [
+        "signatures",
+        "integrity.content_hash"
+      ],
+      "before": null,
+      "change_note": "integrity.previous_event_hash は除外しない。これがハッシュチェーンを成立させる",
+      "path": "/integrity/hash_excluded_fields"
+    },
+    {
+      "after": true,
+      "before": null,
+      "change_note": "規則を変えると過去のすべての content_hash が無効になるため凍結し、変更は canonical-json-v2 として別定義する",
+      "path": "/integrity/canonicalization_frozen"
+    }
+  ],
+  "corrects_event_id": null,
+  "decision_type": "create",
+  "display_id": "DE-20260728-002",
+  "effective_at": "2026-07-29T00:00:00+09:00",
+  "event_id": "de_20260728_canonical_json_v1",
+  "event_kind": "decision",
+  "evidence_refs": [
+    "ev_20260728_transition_engine_docs_v03"
+  ],
+  "expected_outcome": {
+    "review_due_at": null,
+    "success_metrics": [
+      "正本シードの content_hash が再現される",
+      "Ledger の全 Event で content_hash とチェーンが一致する"
+    ],
+    "summary": "content_hash が誰の環境でも同じ値になり、改ざん検知が実際に機能する"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "canonical-json-v1",
+    "content_hash": "pending",
+    "previous_event_hash": null
+  },
+  "model_run_refs": [],
+  "occurred_at": "2026-07-29T00:00:00+09:00",
+  "primary_object_id": "do_01J2H_EXAMPLE_TRANSITION_ENGINE",
+  "proposed_by": [
+    "agent_claude"
+  ],
+  "rationale": {
+    "assumptions": [
+      "v0.3 の正本シードのハッシュは実際に計算された値であり、例示値ではない",
+      "rationale.confidence 以外の小数を Decision Event で使わない"
+    ],
+    "confidence": 0.95,
+    "decision_question": "canonical-json-v1 の正規化規則をどう確定するか。新規に設計するか、既存実装に合わせるか",
+    "facts": [
+      "architecture v0.3 6.2 節は canonical-json-v1 の名称と手順の概要のみを定め、正規化規則を定義していなかった",
+      "seed/sample.de_product_rename.v0.3.yaml は実際に計算された content_hash f9eb852866535b176c9af8c6e9f0d9fcc18ab5950771b4969b652cd04f6acbf6 を持っていた",
+      "キー昇順・区切り (,:)・非ASCIIそのまま・UTF-8・末尾改行なし、除外は signatures と integrity.content_hash の組み合わせで当該ハッシュが再現された",
+      "seed/sample.de_signity_rename.v0.2.yaml の content_hash は同じ規則で再現できなかった"
+    ],
+    "human_value_judgments": [
+      "過去の Event を再計算しないこと",
+      "検証可能性を実装より優先すること",
+      "限界を明示すること"
+    ],
+    "options_considered": [
+      "RFC 8785 (JCS) をそのまま採用する",
+      "既存の正本ハッシュから規則を復元して採用する",
+      "独自に規則を設計し、過去のハッシュを再計算する"
+    ],
+    "revisit_triggers": [
+      "Python 以外の言語で実装し、ハッシュが一致しない事例が出た場合",
+      "rationale.confidence 以外に小数フィールドを追加する場合",
+      "v0.2 の content_hash の算出方法が判明した場合"
+    ],
+    "summary": "新規設計ではなく、既存の正本ハッシュから規則を復元して採用した。seed/sample.de_product_rename.v0.3.yaml の content_hash f9eb8528… がバイト単位で再現されたため、2026-07-10 時点の実装が用いていた規則であることが確認できた。新規に設計すると過去の正本ハッシュが無効になる。",
+    "tradeoffs": [
+      "Python の小数表記に依存するため、他言語実装との差異が理論上残る",
+      "RFC 8785 と BMP 外のキーの並び順で差異が出る",
+      "v0.2 の content_hash は検証不能な旧値として残る"
+    ]
+  },
+  "recorded_at": "2026-07-29T00:00:00+09:00",
+  "schema_version": "0.3",
+  "signatures": [],
+  "status": "draft",
+  "supersedes_event_id": null,
+  "title": "canonical-json-v1 の正規化規則を確定し、凍結する"
+}

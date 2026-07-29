@@ -8,6 +8,11 @@ Signity の設計・アーキテクチャの確定文書です。
 | --- | --- | --- | --- |
 | [`signity-decision-os-architecture-v0.2.md`](signity-decision-os-architecture-v0.2.md) | v0.2 | Draft for validation | Signity Decision OS 全体の思想と概念 |
 | [`signity-transition-engine-architecture-v0.3.md`](signity-transition-engine-architecture-v0.3.md) | v0.3 | Draft for implementation validation | Signity Transition Engine（実装対象プロダクト） |
+| [`canonical-json-v1.md`](canonical-json-v1.md) | v1.0 | **Normative / 凍結** | Decision Event の正規化と `content_hash` の計算規則 |
+
+`canonical-json-v1.md` は architecture v0.3 の 6.2 節が名称のみ定めていた正規化方式を
+規則として確定したものです。**凍結されており、変更は `canonical-json-v2` として別定義します。**
+参照実装は [`tools/signity/canonical.py`](../../tools/signity/canonical.py)。
 
 v0.2 と v0.3 は同一文書の版更新ではありません。対象が異なります。
 v0.2 は umbrella brand としての Signity、v0.3 は傘下プロダクトの Transition Engine を扱います。

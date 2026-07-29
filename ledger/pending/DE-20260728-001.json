@@ -1,0 +1,96 @@
+{
+  "affected_object_ids": [
+    "do_01J2H_EXAMPLE_TRANSITION_ENGINE"
+  ],
+  "approved_at": null,
+  "approved_by": [],
+  "changes": [
+    {
+      "after": "Kenji-Natsumoto/Signity",
+      "before": null,
+      "change_note": "空のリポジトリをドキュメント正本置き場として確立する",
+      "path": "/documentation/repository"
+    },
+    {
+      "after": "docs/{architecture,product,domain,decisions,evidence,journal,development}",
+      "before": null,
+      "change_note": "README (1).md の構成に evidence/ と journal/ を追加",
+      "path": "/documentation/hierarchy"
+    },
+    {
+      "after": "daily-journal-to-decision-event",
+      "before": "ad-hoc",
+      "change_note": "journal → evidence → decisions の一方向フローで日次に蓄積する",
+      "path": "/documentation/accumulation_policy"
+    }
+  ],
+  "corrects_event_id": null,
+  "decision_type": "create",
+  "display_id": "DE-20260728-001",
+  "effective_at": "2026-07-28T00:00:00+09:00",
+  "event_id": "de_20260728_establish_doc_hierarchy",
+  "event_kind": "decision",
+  "evidence_refs": [
+    "ev_20260728_drive_design_documents"
+  ],
+  "expected_outcome": {
+    "review_due_at": "2026-08-11T00:00:00+09:00",
+    "success_metrics": [
+      "2 週間で journal が 10 営業日分蓄積されている",
+      "新規の設計変更が Decision Event として記録されている"
+    ],
+    "summary": "Signity に関する文書の所在が一意に定まり、意思決定が日次で追跡可能になる"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "canonical-json-v1",
+    "content_hash": "pending",
+    "previous_event_hash": null
+  },
+  "model_run_refs": [],
+  "occurred_at": "2026-07-28T10:16:12+09:00",
+  "primary_object_id": "do_signity_umbrella",
+  "proposed_by": [
+    "actor_ken",
+    "agent_claude"
+  ],
+  "rationale": {
+    "assumptions": [
+      "このリポジトリは umbrella brand Signity の正本であり、signity-transition-engine は将来別リポジトリへ分離しうる",
+      "日次の蓄積は人間が journal を起点に行う"
+    ],
+    "confidence": null,
+    "decision_question": "Signity のドキュメントをどこに、どの階層で、どう蓄積していくか",
+    "facts": [
+      "Kenji-Natsumoto/Signity リポジトリは 2026-07-28 時点でコミット 0 件の空リポジトリだった",
+      "設計文書 5 点と zip 2 点が Google Drive 上に存在していた",
+      "README (1).md に想定リポジトリ構成が既に記述されていた"
+    ],
+    "human_value_judgments": [
+      "正本の所在が一意であること",
+      "蓄積の流れが一方向であること",
+      "Signity 自身の思想とドキュメント運用が一致していること"
+    ],
+    "options_considered": [
+      "Google Drive をそのまま正本として継続する",
+      "README (1).md の構成をそのまま採用する",
+      "README (1).md の構成に evidence/ と journal/ を追加する"
+    ],
+    "revisit_triggers": [
+      "signity-transition-engine を別リポジトリへ分離するとき",
+      "schemas/decision-event.schema.v0.3.json を取り込んだとき",
+      "日次 journal の運用が 2 週間継続できなかったとき"
+    ],
+    "summary": "設計文書が Google Drive 上に散在しており、版と正本の所在が追えなくなっていた。Signity 自身が意思決定を追記型イベントとして蓄積する Decision OS である以上、そのドキュメント管理も同じ原則（追記のみ・Current State は投影・人間承認必須）に従うべきと判断した。",
+    "tradeoffs": [
+      "Drive と Git の二重管理が一時的に発生する",
+      "日次 journal の作成が運用負荷になる"
+    ]
+  },
+  "recorded_at": "2026-07-28T10:16:12+09:00",
+  "schema_version": "0.3",
+  "signatures": [],
+  "status": "draft",
+  "supersedes_event_id": null,
+  "title": "Signity リポジトリにドキュメント階層を確立し、日次の蓄積運用を開始する"
+}

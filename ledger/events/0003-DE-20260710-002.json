@@ -1,0 +1,66 @@
+{
+  "affected_object_ids": [],
+  "approved_at": "2026-07-10T15:00:00+09:00",
+  "approved_by": [
+    "actor_ken"
+  ],
+  "changes": [
+    {
+      "after": 8,
+      "before": null,
+      "change_note": "音声セッションが途切れる可能性を考慮し、重要な対話を短い単位で要約・保存する",
+      "path": "/capture_policy/checkpoint_interval_minutes"
+    }
+  ],
+  "corrects_event_id": null,
+  "decision_type": "change",
+  "display_id": "DE-20260710-002",
+  "effective_at": "2026-07-10T15:00:00+09:00",
+  "event_id": "de_bb0001",
+  "event_kind": "decision",
+  "evidence_refs": [
+    "ev_20260710_chatgpt_live_transition_engine"
+  ],
+  "expected_outcome": null,
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "canonical-json-v1",
+    "content_hash": "5e0e8661366341b8c87e5e51d4d920f9c4bae772137619ba94c308867c07a462",
+    "previous_event_hash": "2ed81c3edcb88870e9056451dc85de0c4447ec97cbcb84a19a1610834158cb54"
+  },
+  "model_run_refs": [
+    "mr_20260710_rojina_live_session"
+  ],
+  "occurred_at": "2026-07-10T15:00:00+09:00",
+  "primary_object_id": "do_01J2H_EXAMPLE_TRANSITION_ENGINE",
+  "proposed_by": [
+    "actor_ken",
+    "agent_rojina"
+  ],
+  "rationale": {
+    "assumptions": [],
+    "confidence": null,
+    "decision_question": null,
+    "facts": [
+      "2026-07-10のChatGPT Live対話",
+      "音声セッションが約8〜10分で途切れる現象を複数回確認したこと",
+      "長い会話を一括処理するより、短いチェックポイントの方が記録漏れを防げるという判断"
+    ],
+    "human_value_judgments": [
+      "記録の継続性",
+      "会話の消失防止",
+      "運用負荷の低さ",
+      "後から検証できること"
+    ],
+    "options_considered": [],
+    "revisit_triggers": [],
+    "summary": "8分のチェックポイントは自動的にDecision Eventになるわけではない。チェックポイントはEvidenceとして保存し、状態変化が認められた場合のみEvent候補へ昇格させる。",
+    "tradeoffs": []
+  },
+  "recorded_at": "2026-07-28T10:16:12+09:00",
+  "schema_version": "0.3",
+  "signatures": [],
+  "status": "approved",
+  "supersedes_event_id": null,
+  "title": "意思決定に関する音声対話を短いチェックポイントで区切る運用ルールを定める"
+}

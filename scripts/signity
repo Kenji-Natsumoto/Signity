@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# signity CLI のラッパー。リポジトリのどこからでも実行できる。
+#
+#   ./scripts/signity verify
+#   ./scripts/signity chain
+#   ./scripts/signity state --object do_01J2H_EXAMPLE_TRANSITION_ENGINE
+#   ./scripts/signity hash ledger/events/0001-DE-20260710-003.json
+#   ./scripts/signity validate
+#   ./scripts/signity append ledger/pending/DE-20260728-001.json
+
+set -euo pipefail
+
+REPO="$(cd "$(dirname "$0")/.." && pwd)"
+export PYTHONPATH="$REPO/tools${PYTHONPATH:+:$PYTHONPATH}"
+exec python3 -m signity "$@"

@@ -1,0 +1,82 @@
+{
+  "affected_object_ids": [],
+  "approved_at": "2026-07-10T15:30:00+09:00",
+  "approved_by": [
+    "actor_ken"
+  ],
+  "changes": [
+    {
+      "after": "Signity Transition Engine",
+      "before": "AI Company",
+      "change_note": "一般的な仮称から、機能と人間補佐の役割を明確にする名称へ変更する",
+      "path": "/identity/name"
+    }
+  ],
+  "corrects_event_id": null,
+  "decision_type": "change",
+  "display_id": "DE-20260710-003",
+  "effective_at": "2026-07-10T15:30:00+09:00",
+  "event_id": "de_01J2H7Q0M4X5K8N9P2R3T6V7",
+  "event_kind": "decision",
+  "evidence_refs": [
+    "ev_20260710_morning_brief",
+    "ev_20260710_chatgpt_live_transition_engine"
+  ],
+  "expected_outcome": {
+    "review_due_at": null,
+    "success_metrics": [
+      "正本ファイル内のプロダクト名が統一されている",
+      "AIが人間の代わりに意思決定するという表現が存在しない"
+    ],
+    "summary": "設計文書、Schema、Seed Data、Codex指示で名称と責任範囲が統一される"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "canonical-json-v1",
+    "content_hash": "f9eb852866535b176c9af8c6e9f0d9fcc18ab5950771b4969b652cd04f6acbf6",
+    "previous_event_hash": null
+  },
+  "model_run_refs": [
+    "mr_20260710_rojina_live_session"
+  ],
+  "occurred_at": "2026-07-10T15:30:00+09:00",
+  "primary_object_id": "do_01J2H_EXAMPLE_TRANSITION_ENGINE",
+  "proposed_by": [
+    "actor_ken",
+    "agent_rojina"
+  ],
+  "rationale": {
+    "assumptions": [
+      "説明的な開発名称を使うことでCodexと関係者の理解が揃う"
+    ],
+    "confidence": 0.95,
+    "decision_question": "プロダクトをどの名称で開発・説明するか",
+    "facts": [
+      "プロダクトは人間の代わりに意思決定するものではない",
+      "中核機能は状態遷移候補の検出、構造化、承認、追跡である"
+    ],
+    "human_value_judgments": [
+      "人間中心",
+      "機能の明瞭さ",
+      "誤解の回避",
+      "モデル非依存"
+    ],
+    "options_considered": [
+      "AI Companyを継続する",
+      "Signity Transition Engineへ統一する"
+    ],
+    "revisit_triggers": [
+      "正式な市場向けブランド名を別途決定した場合"
+    ],
+    "summary": "状態変化の検出と人間による承認補佐という機能を誤解なく表すため",
+    "tradeoffs": [
+      "既存資料、ファイル名、参照名の更新が必要になる"
+    ]
+  },
+  "recorded_at": "2026-07-10T16:20:00+09:00",
+  "schema_version": "0.3",
+  "signatures": [],
+  "status": "approved",
+  "supersedes_event_id": null,
+  "title": "プロジェクト名称を「AI Company」から「Signity Transition Engine」へ変更する"
+}

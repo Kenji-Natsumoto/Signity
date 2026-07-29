@@ -20,10 +20,16 @@ Git の commit は「ファイルを書いた記録」、Decision Event は「�
 
 - **承認済みの Decision Event を編集・削除しない。**
   訂正が必要なら、`corrects_event_id` を持つ新しい Correction Event を追加する。
+- **`ledger/events/` を編集・削除しない。連番を振り直さない。** 追記専用。
 - **`docs/evidence/` を書き換えない。** スナップショットとして固定されている。
-- **Current State を手入力しない。** イベント列からの投影として扱う。
+- **Current State を手入力しない。** `./scripts/signity state` で投影する。
 - **人間の承認なしに Decision Event を確定しない。**
   AI ができるのは候補の提示と Draft の生成までで、`status: approved` を自分で付けない。
+  Draft は `ledger/pending/` に置く。
+- **`canonical-json-v1` の規則を変更しない。** 凍結済み。過去のすべての
+  `content_hash` が無効になる。変更が必要なら `canonical-json-v2` として別定義する。
+- **テストの期待ハッシュを書き換えない。**
+  `test_reproduces_canonical_seed_hash` が落ちたら実装が壊れている。
 - **意味論を独断で変更しない。** 文書間に矛盾があれば、直さずに矛盾として報告する。
 - **本番データ・秘密情報を `seed/` や `docs/` に入れない。**
 
@@ -31,12 +37,17 @@ Git の commit は「ファイルを書いた記録」、Decision Event は「�
 
 矛盾がある場合、上位の文書を正とします。
 
-1. `docs/architecture/` の最新版
-2. `schemas/` の JSON Schema
-3. `docs/domain/`
-4. `docs/product/`
-5. `docs/decisions/` 以下のイベント記録
-6. `docs/journal/`
+1. `docs/architecture/canonical-json-v1.md`（Normative / 凍結）
+2. `docs/architecture/` の最新版
+3. `schemas/` の JSON Schema
+4. `ledger/events/`（機械可読な正本）
+5. `docs/domain/`
+6. `docs/product/`
+7. `docs/decisions/`（`ledger/events/` の人間向け記述）
+8. `docs/journal/`
+
+`tools/signity` は実装であり正本ではありません。
+実装と正本が食い違ったら、実装を直します。
 
 ## 5. 新しいドキュメントを追加するとき
 
@@ -44,6 +55,15 @@ Git の commit は「ファイルを書いた記録」、Decision Event は「�
 2. `templates/` の該当ひな形から作る
 3. 命名規則（`docs/README.md` 2 章）に従う
 4. そのディレクトリの `README.md` の索引に追記する
+
+## 5.1 作業を終える前に
+
+```sh
+./scripts/verify-all.sh
+```
+
+正本ハッシュ、Schema 適合、ハッシュチェーン、テストをまとめて確認します。
+Ledger や `schemas/` に触れた場合は必ず実行してください。
 
 ## 6. 用語
 

@@ -1,0 +1,65 @@
+{
+  "affected_object_ids": [],
+  "approved_at": "2026-07-10T14:00:00+09:00",
+  "approved_by": [
+    "actor_ken"
+  ],
+  "changes": [
+    {
+      "after": "event-centered",
+      "before": "git-centered",
+      "change_note": "ファイル差分を中心に考えるのではなく、組織に採用された状態変化を中心に記録する",
+      "path": "/architecture/versioning_focus"
+    }
+  ],
+  "corrects_event_id": null,
+  "decision_type": "change",
+  "display_id": "DE-20260710-001",
+  "effective_at": "2026-07-10T14:00:00+09:00",
+  "event_id": "de_aa0001",
+  "event_kind": "decision",
+  "evidence_refs": [
+    "ev_20260710_chatgpt_live_transition_engine"
+  ],
+  "expected_outcome": null,
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "canonical-json-v1",
+    "content_hash": "2ed81c3edcb88870e9056451dc85de0c4447ec97cbcb84a19a1610834158cb54",
+    "previous_event_hash": "f9eb852866535b176c9af8c6e9f0d9fcc18ab5950771b4969b652cd04f6acbf6"
+  },
+  "model_run_refs": [
+    "mr_20260710_rojina_live_session"
+  ],
+  "occurred_at": "2026-07-10T14:00:00+09:00",
+  "primary_object_id": "do_01J2H_EXAMPLE_TRANSITION_ENGINE",
+  "proposed_by": [
+    "actor_ken",
+    "agent_rojina"
+  ],
+  "rationale": {
+    "assumptions": [],
+    "confidence": null,
+    "decision_question": null,
+    "facts": [
+      "ChatGPT Liveで行った2026-07-10の対話",
+      "ファイル管理だけでは、判断理由、承認者、根拠、結果の関係を十分に表せないという検討"
+    ],
+    "human_value_judgments": [
+      "説明責任",
+      "履歴の追跡可能性",
+      "過去を上書きしないこと",
+      "特定ツールへの依存を避けること"
+    ],
+    "options_considered": [],
+    "revisit_triggers": [],
+    "summary": "対話を通じて、Gitやファイルを中心とした管理より、Decision Objectに対する状態変化を追記型イベントとして記録することが本質だと判断した。",
+    "tradeoffs": []
+  },
+  "recorded_at": "2026-07-28T10:16:12+09:00",
+  "schema_version": "0.3",
+  "signatures": [],
+  "status": "approved",
+  "supersedes_event_id": null,
+  "title": "Signity Transition Engineの最初の運用原則を定める"
+}

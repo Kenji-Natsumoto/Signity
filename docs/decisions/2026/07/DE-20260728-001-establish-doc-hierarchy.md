@@ -3,6 +3,8 @@
 > 承認後はこのファイルを編集しないでください。
 > 訂正が必要な場合は `corrects_event_id` を持つ新しい Correction Event を作成します。
 
+機械可読な正本: [`ledger/pending/DE-20260728-001.json`](../../../../ledger/pending/DE-20260728-001.json)
+
 ```yaml
 schema_version: "0.3"
 event_id: de_20260728_establish_doc_hierarchy
@@ -80,8 +82,8 @@ corrects_event_id: null
 integrity:
   algorithm: sha256
   canonicalization: canonical-json-v1
-  previous_event_hash: null    # Ledger 最初のイベント
-  content_hash: null           # canonical-json-v1 の実装後に計算する
+  previous_event_hash: null    # 承認して追記するときに確定する
+  content_hash: pending        # 承認して追記するときに確定する
 signatures: []
 ```
 
@@ -147,7 +149,9 @@ journal/ → evidence/ → decisions/ → architecture/ product/ domain/
 2. ~~`docs/product/concept-v0.1.md` と `docs/domain/decision-object-0001.md`~~
    → 完了。バンドルの正本を取り込み
 3. `signity_ui_wireframe_ja_bundle.zip`（約 10 MB）の取り込み要否を判断する
-4. `canonical-json-v1` を実装し、本 Event の `content_hash` を計算する
+4. ~~`canonical-json-v1` を実装する~~
+   → 完了。[DE-20260728-002](DE-20260728-002-canonical-json-v1.md) / [仕様書](../../../architecture/canonical-json-v1.md)。
+   本 Event の `content_hash` は承認して `ledger/events/` へ追記した時点で確定する
 5. EV-20260728-002 が記録した矛盾 3 件を、決定として解消する
    - プロジェクト名称の到達点（`Signity` か `Signity Transition Engine` か）
    - `de-bb0001` の `before` 値（`null` か `ad-hoc` か）

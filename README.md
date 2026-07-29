@@ -37,19 +37,34 @@ Signity/
 │   ├── evidence/        # Evidence（意思決定の根拠となった一次資料）
 │   ├── journal/         # 日次ログ（未整理の素材・観測）
 │   └── development/     # 開発手順・ハンドオフ・運用
+├── ledger/
+│   ├── events/          # 承認済み Decision Event（追記専用・ハッシュチェーン）
+│   └── pending/         # Draft（承認待ち）
 ├── schemas/             # JSON Schema / バリデーション規則
-├── scripts/             # 検証スクリプト
+├── scripts/             # CLI ラッパーと検証スクリプト
 ├── seed/                # サンプル・シードデータ
-└── templates/           # 各ドキュメント種別のひな形
+├── templates/           # 各ドキュメント種別のひな形
+└── tools/signity/       # Ledger の参照実装（canonical-json-v1 / 投影 / 検証）
 ```
 
-## 整合性の検証
+`docs/decisions/` が人間向けの記録、`ledger/events/` が機械可読な正本です。
 
-取り込んだ正本が改変されていないことを確認できます。
+## 動かす
 
 ```sh
-./scripts/verify-manifest.sh
+./scripts/verify-all.sh    # 正本ハッシュ・Schema・チェーン・テストをまとめて検証
 ```
+
+```sh
+./scripts/signity chain                                              # ハッシュチェーンを表示
+./scripts/signity verify                                             # Ledger を検証
+./scripts/signity state --object do_01J2H_EXAMPLE_TRANSITION_ENGINE  # Current State を投影
+./scripts/signity hash ledger/events/0001-DE-20260710-003.json       # content_hash を計算
+```
+
+Ledger の先頭 Event の `content_hash` は、2026-07-10 時点の実装が計算した
+`f9eb8528…` と同一です。詳しくは
+[`docs/architecture/canonical-json-v1.md`](docs/architecture/canonical-json-v1.md)。
 
 ## 中核概念
 

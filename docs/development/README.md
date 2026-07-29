@@ -19,7 +19,11 @@
 
 | スクリプト | 内容 |
 | --- | --- |
+| [`../../scripts/verify-all.sh`](../../scripts/verify-all.sh) | 下記すべてとテストをまとめて実行する |
 | [`../../scripts/verify-manifest.sh`](../../scripts/verify-manifest.sh) | v0.3 バンドル取り込み分の SHA-256 を正本 MANIFEST と照合する |
+| [`../../scripts/signity`](../../scripts/signity) | Ledger の CLI（`verify` / `chain` / `state` / `hash` / `validate` / `append`） |
+
+実装は [`tools/`](../../tools/README.md)。
 
 ## 置くもの
 
