@@ -11,7 +11,7 @@ Routine はリポジトリの外（Claude Code Remote 側）に保存される�
 
 | 文書 | Routine | スケジュール |
 | --- | --- | --- |
-| [`nightly-capture-prompt.md`](nightly-capture-prompt.md) | Signity 夜間キャプチャループ | 毎日 22:30 JST（cron `30 13 * * *` UTC） |
+| [`nightly-capture-prompt.md`](nightly-capture-prompt.md) | Signity 夜間キャプチャループ | 毎日 01:00 JST・前日分（cron `0 16 * * *` UTC） |
 
 ## 置くもの
 

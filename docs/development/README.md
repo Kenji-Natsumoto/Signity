@@ -7,7 +7,7 @@
 | 文書 | 内容 |
 | --- | --- |
 | [`codex-handoff.md`](codex-handoff.md) | Signity Transition Engine の実装を Codex に引き継ぐための手順 |
-| [`nightly-capture-loop.md`](nightly-capture-loop.md) | 夜間キャプチャループ（毎晩 22:30 JST）の運用仕様 |
+| [`nightly-capture-loop.md`](nightly-capture-loop.md) | 夜間キャプチャループ（毎晩 01:00 JST・前日分）の運用仕様 |
 | [`prompts/`](prompts/README.md) | 無人実行される Routine のプロンプト正本 |
 
 `codex-handoff.md` は `signity-transition-engine-docs-v0.3.zip` からの取り込み正本です
@@ -26,7 +26,7 @@
 | [`../../scripts/signity`](../../scripts/signity) | Ledger の CLI（`verify` / `chain` / `state` / `hash` / `validate` / `append`） |
 | [`../../scripts/new-journal.sh`](../../scripts/new-journal.sh) | 当日の journal をひな形から用意する（冪等） |
 | [`../../scripts/mac-collect.sh`](../../scripts/mac-collect.sh) | **Mac 上で実行する。** ローカル素材を `docs/journal/inbox/` へ集めて push する |
-| [`../../scripts/launchd/`](../../scripts/launchd/) | Mac 側コレクタの launchd 設定（22:20 JST） |
+| [`../../scripts/launchd/`](../../scripts/launchd/) | Mac 側コレクタの launchd 設定（00:50 JST・前日分） |
 
 実装は [`tools/`](../../tools/README.md)。
 

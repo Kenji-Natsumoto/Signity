@@ -26,8 +26,8 @@ Slack / Gmail / Calendar / Drive / GitHub は
 
 ## 運用
 
-毎晩 22:30 JST の[夜間キャプチャループ](../development/nightly-capture-loop.md)が
-1〜3 を自動で行います。4 は人間が翌朝行います。
+毎晩 01:00 JST の[夜間キャプチャループ](../development/nightly-capture-loop.md)が
+**前日分**について 1〜3 を自動で行います。4 は人間がその朝行います。
 
 1. その日の最初にひな形からファイルを作る
 2. 出てきたものをそのまま書く

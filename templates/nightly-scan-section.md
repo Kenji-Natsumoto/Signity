@@ -2,7 +2,8 @@
 
 - Recorded by: agent_claude（夜間キャプチャループ）
 - Sources: Slack / Gmail / Google Calendar / Google Drive / GitHub / inbox
-- Scan window: YYYY-MM-DDT00:00:00+09:00 〜 YYYY-MM-DDT22:30:00+09:00
+- Scan window: YYYY-MM-DDT00:00:00+09:00 〜 翌 00:00:00+09:00（対象日の丸一日）
+- Scanned at: <実行時刻。対象日の翌 01:00 JST>
 
 > このファイルは Evidence の素材置き場です。判断せずそのまま書いてください。
 > 確定した仕様をここに書かないでください。

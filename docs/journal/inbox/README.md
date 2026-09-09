@@ -3,14 +3,14 @@
 **未加工の素材の受け口**です。夜間キャプチャループが読み取り、journal へ要約します。
 
 ```text
-docs/journal/inbox/YYYY-MM-DD/
+docs/journal/inbox/YYYY-MM-DD/   # 対象日。実行日ではない
 ```
 
 ## ここに入るもの
 
 | 経路 | 対象 | 誰が置くか |
 | --- | --- | --- |
-| Mac 側コレクタ | Mac のローカル議事録・メモ・当日更新ファイル | [`scripts/mac-collect.sh`](../../../scripts/mac-collect.sh)（launchd 22:20 JST） |
+| Mac 側コレクタ | Mac のローカル議事録・メモ・当日更新ファイル | [`scripts/mac-collect.sh`](../../../scripts/mac-collect.sh)（launchd 00:50 JST・前日分） |
 | 手動投下 | コネクタのない SaaS の書き出し（LINE / Chatwork / Teams / Discord / X など） | 人間 |
 
 コネクタのある Slack / Gmail / Calendar / Drive / GitHub は **ここを経由しません。**

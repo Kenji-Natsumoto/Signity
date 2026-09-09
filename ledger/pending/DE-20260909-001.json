@@ -6,13 +6,13 @@
     {
       "after": "docs/development/nightly-capture-loop.md",
       "before": null,
-      "change_note": "Slack / Gmail / Calendar / Drive / GitHub / inbox を毎晩 22:30 JST に横断スキャンし、journal と Draft を生成する",
+      "change_note": "Slack / Gmail / Calendar / Drive / GitHub / inbox を毎晩 01:00 JST に横断スキャンし（対象は前日）、journal と Draft を生成する",
       "path": "/capture/nightly_loop"
     },
     {
-      "after": "cron 30 13 * * * (UTC) = 22:30 JST 毎日",
+      "after": "cron 0 16 * * * (UTC) = 01:00 JST 毎日。対象日は前日",
       "before": null,
-      "change_note": "スキャン窓は当日 00:00〜22:30 JST。窓を重複させず、欠落もさせない",
+      "change_note": "スキャン窓は対象日 D の 00:00〜翌 00:00 JST（丸一日）。日付をまたいでから走らせることで、深夜に確定した話を翌日送りにしない。実行日と対象日が 1 日ずれる",
       "path": "/capture/schedule"
     },
     {
@@ -37,7 +37,7 @@
       "path": "/capture/classification"
     },
     {
-      "after": "scripts/mac-collect.sh + launchd 22:20 JST -> docs/journal/inbox/YYYY-MM-DD/",
+      "after": "scripts/mac-collect.sh --yesterday + launchd 00:50 JST -> docs/journal/inbox/D/",
       "before": null,
       "change_note": "Claude Code Remote は隔離コンテナで動き Mac のファイルに触れない。橋渡しなしにローカル情報は対象にならない",
       "path": "/capture/local_bridge"
@@ -52,7 +52,7 @@
   "corrects_event_id": null,
   "decision_type": "create",
   "display_id": "DE-20260909-001",
-  "effective_at": "2026-09-09T22:30:00+09:00",
+  "effective_at": "2026-09-10T01:00:00+09:00",
   "event_id": "de_20260909_nightly_capture_loop",
   "event_kind": "decision",
   "evidence_refs": [],
@@ -82,7 +82,8 @@
     "assumptions": [
       "スキャン対象の業務情報を置く以上、Kenji-Natsumoto/Signity は private リポジトリである",
       "案件 / 部門の単位は当面 Slack のチャンネル名・スレッド・参加者から推定してよい",
-      "就寝時刻は 22:30 JST 前後であり、22:30 以降に確定する情報は翌日の窓に入れてよい"
+      "就寝後に走らせるため、対象日の 23 時台に確定した話も同じ日の記録に入る",
+      "Mac は 00:50 の時点で起動しているか、遅れて起動した当日中に launchd が追いつく"
     ],
     "confidence": 0.8,
     "decision_question": "外部化された情報を日次で漏れなく蓄積するために、何を機械に任せ、何を人間に残すか",
@@ -92,18 +93,21 @@
       "Claude Code Remote には Slack / Gmail / Google Calendar / Google Drive / GitHub のコネクタが接続済みである",
       "同じ環境で cron 0 21 * * 0-4 の朝のブリーフィング Routine が 2026-07-27 から稼働しており、直近の last_run は SUCCEEDED である",
       "Claude Code Remote は隔離コンテナで実行され、Mac のファイルシステムに到達できない",
-      "LINE / Chatwork / Teams / Discord / X / Facebook 等のコネクタは接続されていない"
+      "LINE / Chatwork / Teams / Discord / X / Facebook 等のコネクタは接続されていない",
+      "起動時刻は 2026-09-09 のセッションで人間が 01:00 JST を選択した"
     ],
     "human_value_judgments": [
       "承認は人間の仕事であり、自動化の利便性と引き換えにしない",
       "読めなかったソースを黙って省略しない。欠落の記録が信頼性の根拠である",
       "「決まったつもりのもの」を可視化することが、決まったことの一覧より価値が高い",
-      "業務の生ログを Git に蓄積しない。参照で足りる"
+      "業務の生ログを Git に蓄積しない。参照で足りる",
+      "対象日の丸一日を欠けなく 1 つの記録に収めることを、実行日との一致より優先する"
     ],
     "options_considered": [
       "人間が毎晩 journal を手で書く運用を継続する",
       "AI が全ソースをスキャンし、決定まで確定して ledger/events/ に追記する",
-      "AI が全ソースをスキャンし、観測のみ確定して候補と Draft を提示し、承認は人間が翌朝行う"
+      "AI が全ソースをスキャンし、観測のみ確定して候補と Draft を提示し、承認は人間が翌朝行う",
+      "22:30 JST に当日分を対象に走らせる（境界の 22:30〜24:00 が翌日送りになる）"
     ],
     "revisit_triggers": [
       "2 週間運用して journal が 10 日分蓄積されなかったとき",
@@ -116,10 +120,11 @@
       "毎晩コミットが増え、Git 履歴に業務由来のノイズが混ざる",
       "案件の束ね方がヒューリスティックであり、案件を取り違える誤りが混入しうる",
       "コネクタのないソースは橋渡しが要り、橋渡しが止まると静かに欠落する（scan.json の unavailable で検出する）",
-      "Mac 側コレクタは Mac がスリープ・持ち出し中だと走らない"
+      "Mac 側コレクタは Mac がスリープ・持ち出し中だと走らない",
+      "実行日と対象日が 1 日ずれるため、日付の取り違えが新たな誤りの原因になりうる"
     ]
   },
-  "recorded_at": "2026-09-09T10:36:53+09:00",
+  "recorded_at": "2026-09-09T10:55:00+09:00",
   "schema_version": "0.3",
   "signatures": [],
   "status": "draft",

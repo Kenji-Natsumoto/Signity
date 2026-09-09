@@ -6,7 +6,7 @@ Signity の **Capture 層**の運用仕様です。
 
 - 対象リポジトリ: `Kenji-Natsumoto/Signity`
 - 運用開始（提案）: 2026-09-09
-- 実行主体: Claude Code Remote の Routine（無人・毎日）
+- 実行主体: Claude Code Remote の Routine（無人・毎日 01:00 JST）
 - 承認主体: 人間（夏本健司）
 
 ## 1. なぜこれが必要か
@@ -41,17 +41,42 @@ L2 は「候補として確定」（＝候補であることが確定した、�
 > このループは「昨日何が決まったか」を勝手に決めません。
 > 「昨日、決まったように見えるものはこれで、決まっていないものはこれだ」を毎朝差し出します。
 
-## 3. 実行時刻
+## 3. 実行時刻と「対象日」
+
+**ループは日付をまたいでから走ります。** 実行日と対象日が 1 日ずれます。ここが仕様の要です。
+
+対象日を `D` とすると:
 
 | 時刻 (JST) | 時刻 (UTC) | 何が起きるか |
 | --- | --- | --- |
-| 22:20 | 13:20 | Mac 側コレクタ（launchd）が `docs/journal/inbox/` へローカル素材を push |
-| 22:30 | 13:30 | 夜間キャプチャループが起動（Routine / cron `30 13 * * *`） |
-| 22:30〜23:10 | | 収集・正規化・判定・記録・push |
-| 翌 06:00 | 21:00 | 既存の朝のブリーフィングが届く（別 Routine） |
+| D 23:59 | | 対象日 `D` が終わる |
+| D+1 00:50 | 15:50 | Mac 側コレクタ（launchd）が **`D` の**ローカル素材を `docs/journal/inbox/D/` へ push |
+| D+1 01:00 | 16:00 | 夜間キャプチャループが起動（Routine / cron `0 16 * * *`） |
+| D+1 01:00〜01:40 | | 収集・正規化・判定・記録・push |
+| D+1 06:00 | 21:00 | 既存の朝のブリーフィングが届く（別 Routine） |
 
-スキャン窓は **当日 00:00:00+09:00 〜 22:30:00+09:00**。
-22:30 以降の情報は翌日の窓に入ります。窓は重複させず、欠落もさせません。
+スキャン窓は **`D` 00:00:00+09:00 〜 `D+1` 00:00:00+09:00**、つまり対象日の丸一日です。
+窓は重複させず、欠落もさせません。境界（23:00 以降に確定した話）を翌日送りにしないために、
+就寝後・日付が変わってから走らせています。
+
+出力先の日付はすべて **`D`** です。実行日 `D+1` ではありません。
+
+```text
+docs/journal/YYYY/MM/D.md
+docs/journal/YYYY/MM/D.scan.json
+docs/journal/inbox/D/
+ledger/pending/DE-<D>-NNN.json
+```
+
+### 「過去日を書き換えない」との関係
+
+`docs/journal/README.md` は「翌日以降、過去日のファイルを書き換えない」と定めています。
+ループは実行時点（`D+1`）から見れば過去日 `D` のファイルに書きます。次のように扱います。
+
+- ループは **`D` の当日運用の締めくくり**であって、後日の遡及ではない。
+- 人間が `D` 中に書いた記述は **一切書き換えない。** 末尾に追記するだけ。
+- `D+2` 以降にループが `D` のファイルへ書くことはない。取りこぼしは
+  発覚した日の journal に `D 追記` として書く。
 
 ## 4. 対象ソース
 
@@ -82,8 +107,9 @@ Claude Code Remote から直接読めません。**読めないものを読め�
 **Claude Code Remote は隔離コンテナで動くため、Mac のファイルシステムに触れません。**
 これは設定で解決できる制約ではありません。橋渡しが必要です。
 
-`scripts/mac-collect.sh` を Mac 側で launchd から毎晩 22:20 に実行し、
-指定ディレクトリの当日更新ファイルを `docs/journal/inbox/YYYY-MM-DD/` へコピーして push します。
+`scripts/mac-collect.sh` を Mac 側で launchd から毎晩 00:50 に `--yesterday` 付きで実行し、
+指定ディレクトリの**前日**更新ファイルを `docs/journal/inbox/D/` へコピーして push します。
+実行は `D+1` ですが、収集対象と保存先は対象日 `D` です。
 設定は [`scripts/launchd/net.sprintjapan.signity.collect.plist`](../../scripts/launchd/net.sprintjapan.signity.collect.plist)。
 
 ## 5. 6 つのフェーズ
@@ -128,8 +154,8 @@ Phase 5  検証    ./scripts/verify-all.sh を通し、commit して push する
 ```json
 {
   "date": "2026-09-09",
-  "window": { "from": "2026-09-09T00:00:00+09:00", "to": "2026-09-09T22:30:00+09:00" },
-  "run_at": "2026-09-09T22:41:03+09:00",
+  "window": { "from": "2026-09-09T00:00:00+09:00", "to": "2026-09-10T00:00:00+09:00" },
+  "run_at": "2026-09-10T01:11:03+09:00",
   "run_by": "agent_claude",
   "sources": [
     { "source": "slack", "status": "ok", "scope": "12 channels / 4 dms", "item_count": 87 },
@@ -156,11 +182,12 @@ Phase 5  検証    ./scripts/verify-all.sh を通し、commit して push する
 
 ## 8. 冪等性と再実行
 
-冪等キーは **日付**です。同じ日に 2 回走らせても壊れません。
+冪等キーは **対象日 `D`** です。同じ対象日に 2 回走らせても壊れません。
 
-- `YYYY-MM-DD.scan.json` が既にあれば、そのファイルの `window.to` 以降だけを追加取得する。
-- journal の過去日は書き換えない（`docs/journal/README.md`）。
-  後から判明したことは当日 journal に `YYYY-MM-DD 追記` として足す。
+- `D.scan.json` が既にあれば、`D` は処理済み。既存の記述を書き換えず、
+  差分があれば末尾に `再スキャン（実行時刻）` として追記する。
+- 人間が書いた記述は書き換えない（`docs/journal/README.md`）。
+  後から判明したことは、発覚した日の journal に `D 追記` として足す。
 - Draft の連番 `NNN` は当日のうちで欠番を作らない。既存の最大値 +1 を使う。
 
 ## 9. 失敗モード
@@ -187,6 +214,32 @@ cat docs/journal/2026/09/2026-09-09.md      # 候補表を見る
 ```
 
 承認しなかった候補は journal に残したままにします。消しません。
+
+## 10.5 既知のブロッカー（2026-09-09 時点）
+
+**登録済みの Routine にコネクタが 1 つも付いていません。**
+
+- Routine ID: `trig_014YmqB9WPbrjPhX1khN6z7C`
+- cron: `0 16 * * *`（UTC）/ 初回: 2026-09-10 01:05 JST
+- `mcp_connections`: **空**
+
+Routine 作成 API の `connectors` パラメータがこの組織では利用できず、
+「このセッションが保持するコネクタしか引き継げない」という制約により、
+Slack / Gmail / Google Calendar / Google Drive のツールが**発火するセッションに渡っていません**。
+
+この状態で走ると、4 章 4.1 のソースはすべて `status: unavailable` として記録されます。
+仕様どおりのふるまいですが、ループの価値は出ません。
+
+**解消手順（人間が行う）:** claude.ai の Routines 画面でこの Routine を開き、
+Slack / Gmail / Google Calendar / Google Drive を接続する。
+同じ環境の朝のブリーフィング Routine（`trig_01EbU9jhXTjZ5gch25FBM6u4`）には
+これらが付いているため、設定自体は可能です。
+
+あわせて未検証の点:
+
+- 発火セッションにリポジトリが自動で clone されるか（`sources` が空）。
+  プロンプトは `add_repo` からの clone を指示しているが、実地では未確認。
+- `scripts/mac-collect.sh` の macOS 上での動作（`stat -f%z` 系）。Linux 側でのみ確認済み。
 
 ## 11. 未解決の論点
 

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <!--
-  Signity Mac 側コレクタ。毎晩 22:20（Mac のローカル時刻）に実行します。
-  夜間キャプチャループ（22:30 JST 起動）が読む前に、ローカル素材を push しておくためです。
+  Signity Mac 側コレクタ。毎晩 00:50（Mac のローカル時刻）に、**前日分**を対象に実行します。
+  夜間キャプチャループ（翌 01:00 JST 起動・前日分が対象）が読む前に、
+  ローカル素材を push しておくためです。実行日と対象日が 1 日ずれる点に注意してください。
+
+  Mac がスリープしていて 00:50 を逃した場合、launchd は起動後に遅れて実行します。
+  その時点でも「前日」指定が正しい対象日を指すのは、当日中に限られます。
 
   導入:
     cp scripts/launchd/net.sprintjapan.signity.collect.plist ~/Library/LaunchAgents/
@@ -29,7 +33,7 @@
   <array>
     <string>/bin/bash</string>
     <string>-lc</string>
-    <string>__REPO__/scripts/mac-collect.sh</string>
+    <string>__REPO__/scripts/mac-collect.sh --yesterday</string>
   </array>
 
   <key>WorkingDirectory</key>
@@ -50,9 +54,9 @@
   <key>StartCalendarInterval</key>
   <dict>
     <key>Hour</key>
-    <integer>22</integer>
+    <integer>0</integer>
     <key>Minute</key>
-    <integer>20</integer>
+    <integer>50</integer>
   </dict>
 
   <!-- Mac がスリープしていて時刻を逃した場合、起動後に実行する -->
