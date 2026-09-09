@@ -1,0 +1,63 @@
+{
+  "date": "2026-09-09",
+  "window": {
+    "from": "2026-09-09T00:00:00+09:00",
+    "to": "2026-09-09T11:03:45+09:00"
+  },
+  "run_at": "2026-09-09T11:03:45+09:00",
+  "run_by": "agent_claude",
+  "run_mode": "manual",
+  "note": "Routine は未登録。DE-20260909-001 承認後の試走として人間の指示で 1 回だけ実行した。窓の終端は仕様の 22:30 ではなく実行時刻。11:03 以降の情報はこの記録に入っていない。",
+  "sources": [
+    {
+      "source": "slack",
+      "status": "partial",
+      "scope": "参加 29 件のうち 21 件（公開 5 / 非公開 9 / 人との DM 7）を走査。ボット DM 8 件（Replit / Cursor / USLACK / USLACKBOT / Notion AI / Claude / Google Drive / Devin）は未走査",
+      "item_count": 0
+    },
+    {
+      "source": "gmail",
+      "status": "ok",
+      "scope": "newer_than:1d のうち窓内 15 スレッド。ラベル Signity/Inbox は未作成",
+      "item_count": 15
+    },
+    {
+      "source": "gcal",
+      "status": "ok",
+      "scope": "primary カレンダー（Fixed）のみ。他カレンダーは未確認",
+      "item_count": 3
+    },
+    {
+      "source": "gdrive",
+      "status": "ok",
+      "scope": "lastModified 上位 15 件のうち窓内 1 件",
+      "item_count": 1
+    },
+    {
+      "source": "github",
+      "status": "ok",
+      "scope": "Kenji-Natsumoto/Signity 全ブランチ",
+      "item_count": 2
+    },
+    {
+      "source": "mac_inbox",
+      "status": "unavailable",
+      "note": "scripts/mac-collect.sh は Mac 側に未設置。docs/journal/inbox/2026-09-09/ が存在しない"
+    },
+    {
+      "source": "bridged_sources",
+      "status": "unavailable",
+      "note": "LINE / Chatwork / Teams / Discord / X / Facebook / Notion。転送先の Gmail ラベル Signity/Inbox が未作成のため橋渡しが成立していない"
+    }
+  ],
+  "counts": {
+    "settled": 3,
+    "unsettled": 5,
+    "ambiguous": 2,
+    "open_balls": 1,
+    "drafts": 1
+  },
+  "drafts": [
+    "DE-20260909-002"
+  ]
+}
