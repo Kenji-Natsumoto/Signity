@@ -41,10 +41,9 @@
     <key>SIGNITY_COLLECT_DIRS</key>
     <string>__HOME__/Documents/Signity:__HOME__/Documents/Meetings:__HOME__/Desktop</string>
     <!-- push 先ブランチ。未設定ならチェックアウト中のブランチを使う。
-         このリポジトリには main がなく、既定ブランチは claude/signity-document-accumulation-qgllub。
+         既定ブランチは main（DE-20260909-002）。 -->
     <key>SIGNITY_COLLECT_BRANCH</key>
-    <string>-</string>
-    -->
+    <string>main</string>
   </dict>
 
   <key>StartCalendarInterval</key>

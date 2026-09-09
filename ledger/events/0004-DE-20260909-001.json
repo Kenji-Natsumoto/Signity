@@ -1,7 +1,9 @@
 {
   "affected_object_ids": [],
-  "approved_at": null,
-  "approved_by": [],
+  "approved_at": "2026-09-09T10:58:36+09:00",
+  "approved_by": [
+    "actor_ken"
+  ],
   "changes": [
     {
       "after": "docs/development/nightly-capture-loop.md",
@@ -68,8 +70,8 @@
   "integrity": {
     "algorithm": "sha256",
     "canonicalization": "canonical-json-v1",
-    "content_hash": "pending",
-    "previous_event_hash": null
+    "content_hash": "06be2fbb308eb4025bc13d24f7b4579230c571ea807aba140724be659593b31d",
+    "previous_event_hash": "5e0e8661366341b8c87e5e51d4d920f9c4bae772137619ba94c308867c07a462"
   },
   "model_run_refs": [],
   "occurred_at": "2026-09-09T10:30:00+09:00",
@@ -122,7 +124,7 @@
   "recorded_at": "2026-09-09T10:36:53+09:00",
   "schema_version": "0.3",
   "signatures": [],
-  "status": "draft",
+  "status": "approved",
   "supersedes_event_id": null,
   "title": "夜間キャプチャループを Signity の Capture 層として導入する"
 }

@@ -178,7 +178,7 @@ Phase 5  検証    ./scripts/verify-all.sh を通し、commit して push する
 翌朝、人間が行うのは 1 つだけです。
 
 ```sh
-git pull                                    # 既定ブランチ。このリポジトリに main はない
+git pull origin main                        # 既定ブランチ（DE-20260909-002）
 cat docs/journal/2026/09/2026-09-09.md      # 候補表を見る
 ./scripts/signity validate ledger/pending/DE-20260909-001.json
 # 承認するものだけ status を approved にし、approved_at / approved_by を書く
@@ -198,9 +198,14 @@ cat docs/journal/2026/09/2026-09-09.md      # 候補表を見る
 - **リポジトリの可視性。** 業務情報が入る以上、リポジトリが private であることが前提。
   7 章の制約はそれでも解除しない。
 - **通知先。** 夜間の完了通知を出すか、朝まで黙るか。現状は「朝まで黙る」。
-- **既定ブランチ名。** このリポジトリに `main` はなく、既定ブランチは
-  `claude/signity-document-accumulation-qgllub`。毎晩の自動コミットの行き先として
-  適切かどうかは未決。`main` を作って既定にするかを含めて要決定。
+- **起動時刻と Routine の登録。** 22:30 JST は仮置きのまま。2026-09-09 時点で
+  Routine は登録していない。まず手動で 1 回走らせ、出力を見てから arm するという判断
+  （2026-09-09）に従う。
+
+解消済みの論点:
+
+- ~~**既定ブランチ名。**~~ `main` を作り、夜間ループの push 先を `main` に固定した
+  （DE-20260909-002 / 2026-09-09）。
 
 ## 12. 関連
 

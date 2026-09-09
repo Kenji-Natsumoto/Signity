@@ -48,8 +48,7 @@ docs/journal/YYYY/MM/YYYY-MM-DD.scan.json が既にあれば、その window.to 
 
 【Phase 5 検証と push】
  ./scripts/verify-all.sh を通す。通ったら commit して
- git push -u origin <リポジトリの既定ブランチ>（このリポジトリに main はない。
- git ls-remote --symref origin HEAD で確認する）。
+ git push -u origin main（既定ブランチ。DE-20260909-002 で確定）。
  push が失敗したら 2s / 4s / 8s / 16s で 4 回まで再試行する。
  verify が落ちたら push せず、失敗内容を journal に書く。
 

@@ -1,0 +1,81 @@
+{
+  "affected_object_ids": [],
+  "approved_at": null,
+  "approved_by": [],
+  "changes": [
+    {
+      "after": "main",
+      "before": "claude/signity-document-accumulation-qgllub",
+      "change_note": "作業ブランチ名が正本の置き場になっていた状態を解消する。GitHub 側の既定ブランチ設定の変更は人間が行う",
+      "path": "/repository/default_branch"
+    },
+    {
+      "after": "main",
+      "before": null,
+      "change_note": "夜間キャプチャループ（DE-20260909-001）が毎晩 commit / push する行き先を固定する",
+      "path": "/capture/push_target_branch"
+    }
+  ],
+  "corrects_event_id": null,
+  "decision_type": "change",
+  "display_id": "DE-20260909-002",
+  "effective_at": "2026-09-09T11:00:00+09:00",
+  "event_id": "de_20260909_default_branch_main",
+  "event_kind": "decision",
+  "evidence_refs": [],
+  "expected_outcome": {
+    "review_due_at": null,
+    "success_metrics": [
+      "origin/HEAD が main を指している",
+      "夜間ループの commit が main に積まれている"
+    ],
+    "summary": "正本の置き場が作業ブランチ名から独立し、毎晩の自動コミットの行き先が一意に定まる"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "canonical-json-v1",
+    "content_hash": "pending",
+    "previous_event_hash": null
+  },
+  "model_run_refs": [],
+  "occurred_at": "2026-09-09T10:59:00+09:00",
+  "primary_object_id": "do_signity_umbrella",
+  "proposed_by": [
+    "actor_ken",
+    "agent_claude"
+  ],
+  "rationale": {
+    "assumptions": [
+      "GitHub 側の既定ブランチ設定の変更には管理者権限が要り、エージェントからは実行できない"
+    ],
+    "confidence": 0.9,
+    "decision_question": "毎晩の自動コミットの行き先をどのブランチにするか",
+    "facts": [
+      "2026-09-09 時点で Kenji-Natsumoto/Signity に main ブランチは存在せず、既定ブランチは claude/signity-document-accumulation-qgllub である",
+      "既定ブランチ名がエージェントのセッション由来の作業ブランチ名になっている",
+      "DE-20260909-001 で承認された夜間キャプチャループは毎晩 commit / push する"
+    ],
+    "human_value_judgments": [
+      "正本の置き場は、特定のセッションや作業者の名前に依存すべきでない"
+    ],
+    "options_considered": [
+      "claude/signity-document-accumulation-qgllub を既定ブランチのまま使い続ける",
+      "main を作って既定ブランチにし、夜間ループの push 先を main に固定する",
+      "毎晩 signity/journal-YYYY-MM-DD ブランチへ push し、人間が PR で承認して取り込む"
+    ],
+    "revisit_triggers": [
+      "夜間ループのコミットを人間のレビューなしに正本へ積むことが問題になったとき（PR 方式へ移行する）"
+    ],
+    "summary": "既定ブランチ名がエージェントのセッション由来の作業ブランチ名（claude/signity-document-accumulation-qgllub）になっており、正本の置き場としては不安定である。main を作って既定にし、夜間キャプチャループの push 先を main に固定する。PR 方式は日次運用の摩擦が大きいため、当面は main へ直接積み、必要になったら見直す。",
+    "tradeoffs": [
+      "main へ直接 push するため、夜間ループの出力に人間のレビューが挟まらない",
+      "既存のブランチ名を参照している手順書・plist を書き換える必要がある"
+    ]
+  },
+  "recorded_at": "2026-09-09T11:02:00+09:00",
+  "schema_version": "0.3",
+  "signatures": [],
+  "status": "draft",
+  "supersedes_event_id": null,
+  "title": "既定ブランチを main にし、夜間ループの push 先を main に固定する"
+}

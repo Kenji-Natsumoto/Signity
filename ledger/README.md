@@ -34,6 +34,7 @@ ledger/
 | 0001 | DE-20260710-003 | 2026-07-10T15:30+09:00 | 名称を AI Company → Signity Transition Engine | `f9eb8528…` |
 | 0002 | DE-20260710-001 | 2026-07-10T14:00+09:00 | versioning_focus を git-centered → event-centered | `2ed81c3e…` |
 | 0003 | DE-20260710-002 | 2026-07-10T15:00+09:00 | checkpoint_interval_minutes を null → 8 | `5e0e8661…` |
+| 0004 | DE-20260909-001 | 2026-09-09T10:30+09:00 | 夜間キャプチャループを Capture 層として導入 | `06be2fbb…` |
 
 先頭の `content_hash: f9eb8528…` は `seed/sample.de_product_rename.v0.3.yaml` が
 2026-07-10 時点で記録していた値と**同一**です。canonical-json-v1 の実装が
@@ -49,7 +50,9 @@ ledger/
 | --- | --- | --- |
 | DE-20260728-001 | Signity のドキュメント階層を確立する | 承認待ち |
 | DE-20260728-002 | canonical-json-v1 の正規化規則を確定・凍結する | 承認待ち |
-| DE-20260909-001 | 夜間キャプチャループを Capture 層として導入する | 承認待ち |
+| DE-20260909-002 | 既定ブランチを main にし、夜間ループの push 先を固定する | 承認待ち |
+
+`DE-20260909-001` は 2026-09-09T10:58:36+09:00 に `actor_ken` が承認し、`0004` として追記しました。
 
 承認は人間が行います。`status` を `approved` にし、`approved_at` と `approved_by` を
 記入したうえで `./scripts/signity append` してください。

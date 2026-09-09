@@ -30,6 +30,7 @@ ledger/events/NNNN-DE-YYYYMMDD-NNN.json            # 機械可読・ハッシュ
 | [DE-20260710-003](2026/07/DE-20260710-003-rename-to-transition-engine.md) | 2026-07-10 | change | 名称を AI Company → Signity Transition Engine | approved | `0001` |
 | [DE-20260728-001](2026/07/DE-20260728-001-establish-doc-hierarchy.md) | 2026-07-28 | create | ドキュメント階層を確立し、蓄積運用を開始する | **draft** | pending |
 | [DE-20260728-002](2026/07/DE-20260728-002-canonical-json-v1.md) | 2026-07-29 | create | canonical-json-v1 を確定・凍結する | **draft** | pending |
+| [DE-20260909-001](2026/09/DE-20260909-001-nightly-capture-loop.md) | 2026-09-09 | create | 夜間キャプチャループを Capture 層として導入する | approved | `0004` |
 
 Ledger 列は `ledger/events/` の連番です。連番と Display ID の番号が一致しないのは、
 連番が**追記順**、Display ID が**発生日の連番**だからです。
