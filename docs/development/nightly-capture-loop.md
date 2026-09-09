@@ -235,6 +235,14 @@ Slack / Gmail / Google Calendar / Google Drive を接続する。
 同じ環境の朝のブリーフィング Routine（`trig_01EbU9jhXTjZ5gch25FBM6u4`）には
 これらが付いているため、設定自体は可能です。
 
+**このループの仕様・スクリプト・ひな形は、まだ既定ブランチに入っていません。**
+既定ブランチ `claude/signity-document-accumulation-qgllub` には
+`docs/development/nightly-capture-loop.md` も `scripts/new-journal.sh` も
+`templates/nightly-scan-section.md` も存在しません。
+Routine のプロンプトは暫定的に `claude/nighttime-scan-loop-0tc3ja` を
+checkout してから作業するよう指定しています。
+**取り込みが済んだら、プロンプトの【ブランチ】段落を削除してください。**
+
 あわせて未検証の点:
 
 - 発火セッションにリポジトリが自動で clone されるか（`sources` が空）。

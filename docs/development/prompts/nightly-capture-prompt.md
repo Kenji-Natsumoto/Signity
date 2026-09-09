@@ -17,6 +17,12 @@ Kenji-Natsumoto/Signity を clone し（セッションに無ければ add_repo 
 docs/development/nightly-capture-loop.md を読んで、その仕様どおりに実行してください。
 以下は要約です。仕様と食い違ったら仕様を正とします。
 
+【ブランチ】このループの仕様・スクリプト・ひな形は、まだ既定ブランチに入っていない。
+clone 後に必ず git checkout claude/nighttime-scan-loop-0tc3ja してから作業すること。
+既定ブランチには docs/development/nightly-capture-loop.md も scripts/new-journal.sh も存在しない。
+push 先も同じ claude/nighttime-scan-loop-0tc3ja。
+（このブランチが既定ブランチへ取り込まれたら、この段落は削除して既定ブランチで走らせる）
+
 【対象日】JST で「昨日」。実行時刻は 01:00 JST なので、対象日 D は date -d yesterday に当たる。
 出力先の日付はすべて D。実行日ではない。ここを取り違えないこと。
 
@@ -55,8 +61,7 @@ docs/journal/YYYY/MM/D.scan.json が既にあれば D は処理済み。既存�
 
 【Phase 5 検証と push】
  ./scripts/verify-all.sh を通す。通ったら commit して
- git push -u origin <リポジトリの既定ブランチ>（このリポジトリに main はない。
- git ls-remote --symref origin HEAD で確認する）。
+ git push -u origin claude/nighttime-scan-loop-0tc3ja。
  push が失敗したら 2s / 4s / 8s / 16s で 4 回まで再試行する。
  verify が落ちたら push せず、失敗内容を journal に書く。
 
@@ -72,8 +77,17 @@ docs/journal/YYYY/MM/D.scan.json が既にあれば D は処理済み。既存�
  - 候補が 0 件でも「候補なし」と明記して commit する。無言で終わらない。
  - 無人実行なので、コネクター提案カードやユーザーへの質問は一切出さない。
 
-【最後に】commit した内容の要点（案件ごとの決まったこと / 決まっていないこと / 決まったつもりのもの /
-返していない球の件数と、取得できなかったソース）を 15 行以内で報告してください。
+【最後に】次の 2 つを報告してください。
+ (1) 配管の可否: clone / ブランチ切替 / ./scripts/new-journal.sh / ./scripts/verify-all.sh / push が
+     それぞれ成功したか。失敗したものは失敗した箇所とエラーをそのまま書く。
+ (2) 内容の要点: 案件ごとの決まったこと / 決まっていないこと / 決まったつもりのもの /
+     返していない球の件数と、取得できなかったソース。
+合わせて 20 行以内。
+
+【コネクタが無い場合】Slack / Gmail / Calendar / Drive のツールが使えないことがある。
+その場合もエラーで止まらず、該当ソースを status: unavailable として記録し、
+GitHub と inbox だけで最後まで完走して commit と push まで行うこと。
+「配管が通っているか」の確認が、その回の目的になる。
 ```
 
 ---
@@ -100,3 +114,4 @@ Claude Code / Claude Code Remote から Routine を作ります。
 | --- | --- |
 | 2026-09-09 | 初版。起動 22:30 JST・当日対象で起草 |
 | 2026-09-09 | 起動を 01:00 JST に変更し、対象日を前日・窓を丸一日にした |
+| 2026-09-09 | 作業ブランチの指定を追加。コネクタ無しでも完走する指示と配管報告を追加 |
