@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Signity Mac 側コレクタ。毎晩 22:20（Mac のローカル時刻）に実行します。
+  夜間キャプチャループ（22:30 JST 起動）が読む前に、ローカル素材を push しておくためです。
+
+  導入:
+    cp scripts/launchd/net.sprintjapan.signity.collect.plist ~/Library/LaunchAgents/
+    # ~/Library/LaunchAgents/net.sprintjapan.signity.collect.plist の
+    # __REPO__ を実際のリポジトリの絶対パスに置換する
+    launchctl load -w ~/Library/LaunchAgents/net.sprintjapan.signity.collect.plist
+
+  確認:
+    launchctl list | grep signity
+    tail -f /tmp/signity-collect.log
+
+  停止:
+    launchctl unload -w ~/Library/LaunchAgents/net.sprintjapan.signity.collect.plist
+
+  注意: 収集元ディレクトリがフルディスクアクセスを必要とする場所（Desktop / Documents など）にある場合、
+  システム設定 > プライバシーとセキュリティ > フルディスクアクセス で /bin/bash を許可してください。
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>net.sprintjapan.signity.collect</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>-lc</string>
+    <string>__REPO__/scripts/mac-collect.sh</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>__REPO__</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <!-- 収集元。コロン区切り。自分の運用に合わせて書き換えてください。 -->
+    <key>SIGNITY_COLLECT_DIRS</key>
+    <string>__HOME__/Documents/Signity:__HOME__/Documents/Meetings:__HOME__/Desktop</string>
+    <!-- push 先ブランチ。未設定ならチェックアウト中のブランチを使う。
+         このリポジトリには main がなく、既定ブランチは claude/signity-document-accumulation-qgllub。
+    <key>SIGNITY_COLLECT_BRANCH</key>
+    <string>-</string>
+    -->
+  </dict>
+
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>22</integer>
+    <key>Minute</key>
+    <integer>20</integer>
+  </dict>
+
+  <!-- Mac がスリープしていて時刻を逃した場合、起動後に実行する -->
+  <key>RunAtLoad</key>
+  <false/>
+
+  <key>StandardOutPath</key>
+  <string>/tmp/signity-collect.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/signity-collect.log</string>
+</dict>
+</plist>

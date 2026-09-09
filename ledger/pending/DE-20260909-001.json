@@ -1,0 +1,128 @@
+{
+  "affected_object_ids": [],
+  "approved_at": null,
+  "approved_by": [],
+  "changes": [
+    {
+      "after": "docs/development/nightly-capture-loop.md",
+      "before": null,
+      "change_note": "Slack / Gmail / Calendar / Drive / GitHub / inbox を毎晩 22:30 JST に横断スキャンし、journal と Draft を生成する",
+      "path": "/capture/nightly_loop"
+    },
+    {
+      "after": "cron 30 13 * * * (UTC) = 22:30 JST 毎日",
+      "before": null,
+      "change_note": "スキャン窓は当日 00:00〜22:30 JST。窓を重複させず、欠落もさせない",
+      "path": "/capture/schedule"
+    },
+    {
+      "after": [
+        "L1 Observed = AI が確定",
+        "L2 Candidate = AI は提示のみ",
+        "L3 Approved = 人間のみ"
+      ],
+      "before": null,
+      "change_note": "「確定して記録する」を 3 層に分ける。AI が確定してよいのは観測のみで、ledger/events/ には書き込まない",
+      "path": "/capture/confidence_layers"
+    },
+    {
+      "after": [
+        "決まったこと",
+        "決まっていないこと",
+        "決まったつもりのもの",
+        "返していない球"
+      ],
+      "before": null,
+      "change_note": "三分類のうち「決まったつもりのもの」の可視化を主目的とする",
+      "path": "/capture/classification"
+    },
+    {
+      "after": "scripts/mac-collect.sh + launchd 22:20 JST -> docs/journal/inbox/YYYY-MM-DD/",
+      "before": null,
+      "change_note": "Claude Code Remote は隔離コンテナで動き Mac のファイルに触れない。橋渡しなしにローカル情報は対象にならない",
+      "path": "/capture/local_bridge"
+    },
+    {
+      "after": "reference-and-summary-only",
+      "before": null,
+      "change_note": "生ログを journal に転記しない。参照（permalink / message id / file id）と要約のみを書く",
+      "path": "/capture/raw_log_policy"
+    }
+  ],
+  "corrects_event_id": null,
+  "decision_type": "create",
+  "display_id": "DE-20260909-001",
+  "effective_at": "2026-09-09T22:30:00+09:00",
+  "event_id": "de_20260909_nightly_capture_loop",
+  "event_kind": "decision",
+  "evidence_refs": [],
+  "expected_outcome": {
+    "review_due_at": "2026-09-23T00:00:00+09:00",
+    "success_metrics": [
+      "2 週間で journal が 14 日分蓄積されている",
+      "scan.json のソース status が unavailable のまま 3 日以上続いたソースがない",
+      "生成された Draft のうち、承認または明示的な見送りの判断が付いたものが 8 割を超える"
+    ],
+    "summary": "毎朝、案件ごとに「決まったこと / 決まっていないこと / 決まったつもりのもの / 返していない球」が並んだ状態で 1 日が始まり、人間の判断が承認だけになる"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "canonical-json-v1",
+    "content_hash": "pending",
+    "previous_event_hash": null
+  },
+  "model_run_refs": [],
+  "occurred_at": "2026-09-09T10:30:00+09:00",
+  "primary_object_id": "do_signity_umbrella",
+  "proposed_by": [
+    "actor_ken",
+    "agent_claude"
+  ],
+  "rationale": {
+    "assumptions": [
+      "スキャン対象の業務情報を置く以上、Kenji-Natsumoto/Signity は private リポジトリである",
+      "案件 / 部門の単位は当面 Slack のチャンネル名・スレッド・参加者から推定してよい",
+      "就寝時刻は 22:30 JST 前後であり、22:30 以降に確定する情報は翌日の窓に入れてよい"
+    ],
+    "confidence": 0.8,
+    "decision_question": "外部化された情報を日次で漏れなく蓄積するために、何を機械に任せ、何を人間に残すか",
+    "facts": [
+      "docs/journal/ には 2026-07-28 と 2026-07-29 の 2 日分しかなく、DE-20260728-001 の success_metrics「2 週間で journal が 10 営業日分蓄積されている」は達成されていない",
+      "同 Event の revisit_triggers に「日次 journal の運用が 2 週間継続できなかったとき」が含まれている",
+      "Claude Code Remote には Slack / Gmail / Google Calendar / Google Drive / GitHub のコネクタが接続済みである",
+      "同じ環境で cron 0 21 * * 0-4 の朝のブリーフィング Routine が 2026-07-27 から稼働しており、直近の last_run は SUCCEEDED である",
+      "Claude Code Remote は隔離コンテナで実行され、Mac のファイルシステムに到達できない",
+      "LINE / Chatwork / Teams / Discord / X / Facebook 等のコネクタは接続されていない"
+    ],
+    "human_value_judgments": [
+      "承認は人間の仕事であり、自動化の利便性と引き換えにしない",
+      "読めなかったソースを黙って省略しない。欠落の記録が信頼性の根拠である",
+      "「決まったつもりのもの」を可視化することが、決まったことの一覧より価値が高い",
+      "業務の生ログを Git に蓄積しない。参照で足りる"
+    ],
+    "options_considered": [
+      "人間が毎晩 journal を手で書く運用を継続する",
+      "AI が全ソースをスキャンし、決定まで確定して ledger/events/ に追記する",
+      "AI が全ソースをスキャンし、観測のみ確定して候補と Draft を提示し、承認は人間が翌朝行う"
+    ],
+    "revisit_triggers": [
+      "2 週間運用して journal が 10 日分蓄積されなかったとき",
+      "生成された Draft の承認率が著しく低いとき（候補の質が低い）",
+      "コネクタのないソースが業務の主戦場になったとき",
+      "案件 / 部門を Decision Object として定義したとき"
+    ],
+    "summary": "docs/README.md 3 章の日次運用フローのうち、1〜3（journal 作成・観測の書き起こし・候補への印付け）は観測作業であり機械が代行できる。4（承認）は AGENTS.md 3 章により機械が代行してはいけない。夜間キャプチャループは 1〜3 だけを自動化し、人間の仕事を「全ソースを思い出して書き起こすこと」から「並べられた候補を承認するか決めること」に変える。日次蓄積が人手に依存している限り、抜けた日の情報は永久に復元できない。",
+    "tradeoffs": [
+      "毎晩コミットが増え、Git 履歴に業務由来のノイズが混ざる",
+      "案件の束ね方がヒューリスティックであり、案件を取り違える誤りが混入しうる",
+      "コネクタのないソースは橋渡しが要り、橋渡しが止まると静かに欠落する（scan.json の unavailable で検出する）",
+      "Mac 側コレクタは Mac がスリープ・持ち出し中だと走らない"
+    ]
+  },
+  "recorded_at": "2026-09-09T10:36:53+09:00",
+  "schema_version": "0.3",
+  "signatures": [],
+  "status": "draft",
+  "supersedes_event_id": null,
+  "title": "夜間キャプチャループを Signity の Capture 層として導入する"
+}

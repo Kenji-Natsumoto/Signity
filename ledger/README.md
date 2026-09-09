@@ -49,6 +49,7 @@ ledger/
 | --- | --- | --- |
 | DE-20260728-001 | Signity のドキュメント階層を確立する | 承認待ち |
 | DE-20260728-002 | canonical-json-v1 の正規化規則を確定・凍結する | 承認待ち |
+| DE-20260909-001 | 夜間キャプチャループを Capture 層として導入する | 承認待ち |
 
 承認は人間が行います。`status` を `approved` にし、`approved_at` と `approved_by` を
 記入したうえで `./scripts/signity append` してください。

@@ -22,6 +22,7 @@ Signity は、会議・対話・Slack・文書・AI エージェントの出力�
 | 何が決まったかを追う | [`docs/decisions/`](docs/decisions/) |
 | 今日何があったかを追う | [`docs/journal/`](docs/journal/) |
 | AI エージェントとして作業する | [`AGENTS.md`](AGENTS.md) |
+| 毎晩の自動スキャンの仕組みを知る | [`docs/development/nightly-capture-loop.md`](docs/development/nightly-capture-loop.md) |
 
 ## リポジトリ階層
 

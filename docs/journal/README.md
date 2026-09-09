@@ -14,8 +14,20 @@ docs/journal/YYYY/MM/YYYY-MM-DD.md
 1 日 1 ファイル。分割しません。
 
 ひな形: [`templates/journal-daily.md`](../../templates/journal-daily.md)
+夜間キャプチャループ用のひな形: [`templates/nightly-scan-section.md`](../../templates/nightly-scan-section.md)
+
+`./scripts/new-journal.sh` で当日分を用意できます（既にあれば何もしません）。
+
+## 素材の受け口
+
+コネクタのないソースと Mac のローカル素材は [`inbox/`](inbox/README.md) に入ります。
+Slack / Gmail / Calendar / Drive / GitHub は
+[夜間キャプチャループ](../development/nightly-capture-loop.md)が直接読むため、inbox を経由しません。
 
 ## 運用
+
+毎晩 22:30 JST の[夜間キャプチャループ](../development/nightly-capture-loop.md)が
+1〜3 を自動で行います。4 は人間が翌朝行います。
 
 1. その日の最初にひな形からファイルを作る
 2. 出てきたものをそのまま書く
@@ -35,3 +47,4 @@ docs/journal/YYYY/MM/YYYY-MM-DD.md
 | --- | --- |
 | [2026-07-28](2026/07/2026-07-28.md) | ドキュメント階層の確立、Drive 設計文書と v0.3 バンドルの取り込み |
 | [2026-07-29](2026/07/2026-07-29.md) | canonical-json-v1 の確定、Ledger とハッシュチェーンの稼働 |
+| [2026-09-09](2026/09/2026-09-09.md) | 夜間キャプチャループの設計、Capture 層の 3 層分離 |
