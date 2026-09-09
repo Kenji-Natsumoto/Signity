@@ -12,8 +12,15 @@
     {
       "source": "slack",
       "status": "partial",
-      "scope": "参加 29 件のうち 21 件（公開 5 / 非公開 9 / 人との DM 7）を走査。ボット DM 8 件（Replit / Cursor / USLACK / USLACKBOT / Notion AI / Claude / Google Drive / Devin）は未走査",
-      "item_count": 0
+      "scope": "既定ワークスペース（Sprint Japan / 本人 U09L9QC9678）の参加 29 件のうち 21 件（公開 5 / 非公開 9 / 人との DM 7）。ボット DM 8 件は未走査",
+      "item_count": 0,
+      "note": "既定ワークスペース以外は列挙していない。team_id を渡さない限り他ワークスペースのメンバーシップは返らない"
+    },
+    {
+      "source": "slack_other_workspaces",
+      "status": "unavailable",
+      "scope": "「Sprint Japan × ZENT」ワークスペースの #zentアプリ開発 ほか",
+      "note": "2026-09-09 に人間から指摘を受けて判明。search_channels / search_public_and_private / list_user_channels(name_prefix=zent) のいずれも 0 件で、接続中の Slack コネクタから到達できない。別ワークスペースなのか team_id 未指定の Grid ワークスペースなのかは、この環境からは判別できない"
     },
     {
       "source": "gmail",
@@ -52,12 +59,22 @@
   ],
   "counts": {
     "settled": 3,
-    "unsettled": 5,
+    "unsettled": 6,
     "ambiguous": 2,
     "open_balls": 1,
     "drafts": 1
   },
   "drafts": [
     "DE-20260909-002"
+  ],
+  "revisions": [
+    {
+      "at": "2026-09-09T11:03:45+09:00",
+      "note": "手動スキャン第 1 回"
+    },
+    {
+      "at": "2026-09-09T11:20:00+09:00",
+      "note": "Slack の走査範囲が既定ワークスペースに限られていたことが人間の指摘で判明。slack_other_workspaces を unavailable として追加した"
+    }
   ]
 }

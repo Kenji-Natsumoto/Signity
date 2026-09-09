@@ -19,7 +19,10 @@ Kenji-Natsumoto/Signity を clone し、docs/development/nightly-capture-loop.md
 docs/journal/YYYY/MM/YYYY-MM-DD.scan.json が既にあれば、その window.to 以降だけを追加取得する。
 
 【Phase 1 収集】次を横断して当日の差分を取る。取れなかったソースは必ず記録に残す。
- - Slack: slack_list_user_channels で参加チャンネルと DM を列挙し、slack_read_channel で当日分を読む
+ - Slack: slack_list_user_channels で参加チャンネルと DM を列挙し、slack_read_channel で当日分を読む。
+   ワークスペースごとに team_id を指定して列挙すること。team_id を渡さないと既定ワークスペースしか返らない。
+   到達できないワークスペース（2026-09-09 時点で「Sprint Japan × ZENT」）は
+   scan.json に unavailable として必ず残す。チャンネル一覧が空でも「Slack は無音」と書かない。
  - Gmail: 当日の受信・送信。ラベル Signity/Inbox を優先
  - Google Calendar: 当日実施された会議
  - Google Drive: 当日更新されたファイル（議事録・設計文書）

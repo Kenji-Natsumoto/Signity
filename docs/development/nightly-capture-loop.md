@@ -59,11 +59,29 @@ L2 は「候補として確定」（＝候補であることが確定した、�
 
 | ソース | 使うもの | 取得範囲 |
 | --- | --- | --- |
-| Slack | `slack_list_user_channels` → `slack_read_channel` / `slack_search_public_and_private` | 参加チャンネル・DM・スレッド。案件/部門チャンネル単位で束ねる |
+| Slack | `slack_list_user_channels` → `slack_read_channel` / `slack_search_public_and_private` | 参加チャンネル・DM・スレッド。案件/部門チャンネル単位で束ねる。**ワークスペースごとに走査する（下記）** |
 | Gmail | `search_threads` → `get_thread` | 当日の受信・送信。ラベル `Signity/Inbox` を優先 |
 | Google Calendar | `list_events` | 当日実施された会議（=「決まったはずの場」の一覧） |
 | Google Drive | `list_recent_files` → `read_file_content` | 当日更新された議事録・設計文書 |
 | GitHub | `list_commits` / `list_pull_requests` / `issue_read` | `Kenji-Natsumoto/Signity` ほかスコープ内リポジトリ |
+
+#### Slack はワークスペース単位で走査する
+
+**`slack_list_user_channels` は `team_id` を渡さない限り、既定ワークスペースの参加チャンネルしか返しません。**
+チャンネル一覧が空でも、それは「そのワークスペースで無音だった」という意味でしかありません。
+
+1. 走査対象のワークスペースを列挙する（下表）。
+2. ワークスペースごとに `team_id` を指定して `slack_list_user_channels` を呼ぶ。
+3. **`scan.json` にワークスペース単位で `status` を記録する。**
+   到達できないワークスペースは `unavailable` として必ず残す。
+
+| ワークスペース | 到達 | 備考 |
+| --- | --- | --- |
+| Sprint Japan（既定 / 本人 `U09L9QC9678`） | ok | 参加 29 件（公開 5 / 非公開 9 / DM 15） |
+| Sprint Japan × ZENT（`#zentアプリ開発` ほか） | **unavailable** | 2026-09-09 時点、接続中のコネクタから到達できない。`search_channels` / `search_public_and_private` / `list_user_channels(name_prefix)` のいずれも 0 件。橋渡しの方式は未決 |
+
+`Slack: 0 件` と書く前に、**それが「無音」なのか「視界の外」なのかを必ず区別してください。**
+区別できないときは `ok` ではなく `partial` にし、何を見ていないかを `note` に書きます。
 
 ### 4.2 橋渡しが必要なもの（コネクタなし）
 
