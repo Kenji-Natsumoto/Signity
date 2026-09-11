@@ -7,6 +7,7 @@
 | 文書 | 内容 |
 | --- | --- |
 | [`codex-handoff.md`](codex-handoff.md) | Signity Transition Engine の実装を Codex に引き継ぐための手順 |
+| [`viberush-jp-channel-smoke-test.md`](viberush-jp-channel-smoke-test.md) | jp.VibeRush のチャネル配分仮説を 2 週間で検証する実行手順（2026-09-12 〜 09-25） |
 
 `codex-handoff.md` は `signity-transition-engine-docs-v0.3.zip` からの取り込み正本です
 （SHA-256 `01ac8a95…4834e30f`、[EV-20260728-002](../evidence/2026/07/EV-20260728-002-transition-engine-docs-v0.3-bundle.md)）。
@@ -35,5 +36,9 @@
 
 - 設計思想（`docs/architecture/` へ）
 - 意思決定の記録（`docs/decisions/` へ）
+
+> `viberush-jp-channel-smoke-test.md` の置き場所は暫定です。`docs/README.md` の階層表には
+> マーケティング実行手順の置き場所がなく、「運用手順」として暫定的にここに置いています。
+> `docs/operations/` の新設か、このディレクトリの定義を広げるかは未決定です。
 
 このディレクトリの文書は随時更新可能です。

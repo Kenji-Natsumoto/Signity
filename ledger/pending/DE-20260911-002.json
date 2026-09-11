@@ -1,0 +1,149 @@
+{
+  "affected_object_ids": [],
+  "approved_at": null,
+  "approved_by": [],
+  "changes": [
+    {
+      "after": "jp.VibeRush",
+      "before": null,
+      "change_note": "日本語圏向けの VibeRush。英語圏の VibeRush.io とは別の Decision Object として扱う",
+      "path": "/identity/name"
+    },
+    {
+      "after": "https://jp.viberush.io/",
+      "before": null,
+      "change_note": "2026-09-11 時点で公開されている正規 URL",
+      "path": "/identity/canonical_url"
+    },
+    {
+      "after": "actor_ken",
+      "before": null,
+      "change_note": "オーナー。DO-0001 と同じ actor 表記を用いる",
+      "path": "/identity/owner"
+    },
+    {
+      "after": "launched",
+      "before": null,
+      "change_note": "2026-09-10 に公開済み。DO-0001 は concept であり、公開済みの段階を表す語彙は未定義のため launched と表記した",
+      "path": "/lifecycle/stage"
+    },
+    {
+      "after": true,
+      "before": null,
+      "change_note": "ledger/README.md の未解決の課題 4 と同じ取り違えを避けるため、文書への手入力ではなく Event として記録する",
+      "path": "/governance/human_approval_required"
+    },
+    {
+      "after": "directory",
+      "before": null,
+      "change_note": "週次ランキングを持つ掲載型のディレクトリ。両サイド（掲載者・閲覧者）を必要とする",
+      "path": "/product/kind"
+    },
+    {
+      "after": "非エンジニアの AI アプリ作者が、作ったものを 30 秒で公開し発見される場所",
+      "before": null,
+      "change_note": "サイトの記載（「非エンジニアのための AI アプリ PR プラットフォーム」「30秒公開実施中」）にもとづく",
+      "path": "/product/value_proposition"
+    },
+    {
+      "after": "日本語圏の非エンジニアの AI アプリ作者（掲載者）と、AI アプリを探す利用者（閲覧者）",
+      "before": null,
+      "change_note": "立ち上げ期のボトルネックは掲載者側である（DE-20260911-001 の北極星指標と対応する）",
+      "path": "/product/target_user"
+    },
+    {
+      "after": "掲載・利用ともに無料",
+      "before": null,
+      "change_note": "サイトに「掲載も利用も費用はかかりません」と明記されている（2026-09-11 確認）",
+      "path": "/product/pricing"
+    },
+    {
+      "after": "2026-09-10",
+      "before": null,
+      "change_note": "オーナー申告。公開日であり、Decision Object の発行日ではない",
+      "path": "/product/launched_on"
+    },
+    {
+      "after": "VibeRush.io（英語圏）",
+      "before": null,
+      "change_note": "同一ブランドの英語圏版。集客は英語の LinkedIn アカウントが中心であり、DE-20260911-001 はこの非対称性を根拠にしている",
+      "path": "/relations/counterpart_product"
+    }
+  ],
+  "corrects_event_id": null,
+  "decision_type": "create",
+  "display_id": "DE-20260911-002",
+  "effective_at": null,
+  "event_id": "de_20260911_viberush_jp_object_create",
+  "event_kind": "decision",
+  "evidence_refs": [],
+  "expected_outcome": {
+    "review_due_at": null,
+    "success_metrics": [
+      "./scripts/signity state --object do_20260911_viberush_jp が strict モードで成功する",
+      "承認後に docs/domain/decision-object-0002.md が作成され、docs/domain/README.md の一覧に載る"
+    ],
+    "summary": "DE-20260911-001 の primary_object_id が実在の Decision Object を指し、jp.VibeRush の Current State が Event 列から投影できる状態になる"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "canonical-json-v1",
+    "content_hash": "pending",
+    "previous_event_hash": null
+  },
+  "model_run_refs": [
+    "mr_20260911_claude_code_penta_session"
+  ],
+  "occurred_at": "2026-09-11T15:47:05+09:00",
+  "primary_object_id": "do_20260911_viberush_jp",
+  "proposed_by": [
+    "agent_claude"
+  ],
+  "rationale": {
+    "assumptions": [
+      "jp.VibeRush が Signity 傘下のプロダクトかどうかは未決定であるため、umbrella_brand を状態に含めていない（docs/product/README.md の「Signity 傘下のプロダクト」表への追加も承認後の判断とする）",
+      "lifecycle.stage の語彙は定義されていない。DO-0001 が concept を使っているため、公開済みの段階を launched と表記した",
+      "Object ID の発行規則は未定義であるため、日付ベースの識別子を用いた"
+    ],
+    "confidence": 0.8,
+    "decision_question": "jp.VibeRush を Decision Object として発行するか。発行するなら Object ID と初期状態をどう定めるか",
+    "facts": [
+      "docs/domain/ に存在する Decision Object は DO-0001（Signity Transition Engine・種別 project）のみで、種別 product の実例はない",
+      "DE-20260911-001 は primary_object_id に do_20260911_viberush_jp を指定しているが、この Object を成立させる Event は存在しない",
+      "ledger/README.md の未解決の課題 1 は、Decision Object を成立させる create Event がないため strict モードの投影が失敗すると記録している",
+      "ledger/README.md の未解決の課題 2 は、DO-0001 の primary_object_id が文字列に EXAMPLE を含む例示値のままであると記録している",
+      "Schema v0.3 は primary_object_id を minLength 4 の文字列としか定めておらず、ULID を必須にしていない",
+      "jp.viberush.io は 2026-09-10 に公開され、掲載無料・週次ランキング付きのディレクトリとして稼働している（2026-09-11 にサイトを確認）"
+    ],
+    "human_value_judgments": [
+      "識別子を捏造しない。ULID を手で作らず、由来が説明できる日付ベースの ID を用いる",
+      "Object の初期状態は文書への手入力ではなく create Event として記録する",
+      "未決定の事項（傘下関係・stage の語彙・ID 発行規則）を初期状態に混ぜず、assumptions として明示する"
+    ],
+    "options_considered": [
+      "Decision Object を発行せず、jp.VibeRush を DO-0001 の属性として扱う",
+      "ULID を発行して do_<ULID> 形式の Object ID を採用する",
+      "日付ベースの識別子 do_20260911_viberush_jp を採用し、ID 発行規則の確定は別の決定に委ねる"
+    ],
+    "revisit_triggers": [
+      "Object ID の発行規則（ULID か日付ベースか）を定める決定が行われた場合",
+      "jp.VibeRush を Signity 傘下のプロダクトとして位置づける決定が行われた場合",
+      "lifecycle.stage の語彙が定義された場合",
+      "英語圏の VibeRush.io も Decision Object として発行する場合",
+      "DO-0001 の例示値 Object ID を移行する決定が行われた場合（同じ発行規則を適用する必要がある）"
+    ],
+    "summary": "jp.VibeRush を Decision Object（DO-0002・種別 product）として発行し、初期状態を create Event として確定する。DE-20260911-001 が暫定の primary_object_id を参照したままになるのを避けることが直接の動機である。ledger/README.md の未解決の課題 1 は、Object を成立させる create Event がないために strict モードの投影が失敗すると記録しており、新しい Object で同じ状態を作らないために、初期状態を before: null から設定する create Event を先に置く。Object ID は ULID を手で捏造せず、由来が説明できる日付ベースの do_20260911_viberush_jp とした。種別 product は DO-0001（project）に続く 2 例目であり、docs/domain/README.md が挙げる種別のうち product の最初の実例になる。",
+    "tradeoffs": [
+      "日付ベースの Object ID は ULID の時系列ソート性と一意性保証を持たない",
+      "lifecycle.stage の語彙が未定義のまま値を入れるため、後から語彙を定義した場合に Correction Event が必要になる可能性がある",
+      "display_id は DE-20260911-001 より後だが、投影を成立させるには先に追記する必要があり、display_id の番号順と追記順が一致しない",
+      "初期状態に含めた product 配下の状態軸は DO-0001 に前例がなく、状態軸の定義は docs/domain/ で後追いになる"
+    ]
+  },
+  "recorded_at": "2026-09-11T15:47:05+09:00",
+  "schema_version": "0.3",
+  "signatures": [],
+  "status": "draft",
+  "supersedes_event_id": null,
+  "title": "Decision Object jp.VibeRush（DO-0002・種別 product）を発行し、初期状態を確定する"
+}

@@ -50,20 +50,42 @@ ledger/
 | DE-20260728-001 | Signity のドキュメント階層を確立する | 承認待ち |
 | DE-20260728-002 | canonical-json-v1 の正規化規則を確定・凍結する | 承認待ち |
 | DE-20260911-001 | jp.VibeRush の Building in Public チャネル方針を確定する | 承認待ち |
+| DE-20260911-002 | Decision Object jp.VibeRush（DO-0002）を発行し初期状態を確定する | 承認待ち |
 
 承認は人間が行います。`status` を `approved` にし、`approved_at` と `approved_by` を
 記入したうえで `./scripts/signity append` してください。
 
-`DE-20260911-001` は承認前に次の 2 点を人間が確定してください。
-`ledger/pending/` の Draft であり、チェーンには未接続です。
+### DE-20260911-001 / -002 の追記順
 
-| 項目 | 現在の値 | 確定が必要な理由 |
-| --- | --- | --- |
-| `primary_object_id` | `do_20260911_viberush_jp` | jp.VibeRush は Decision Object として未発行。`docs/domain/` には DO-0001 のみが存在する |
-| `occurred_at` / `effective_at` | Draft 作成時刻 / `null` | 実際に方針を決定した時刻と効力発生時刻は承認時に記入する |
+**display_id の番号順ではなく、`DE-20260911-002` を先に追記してください。**
+
+```sh
+./scripts/signity append ledger/pending/DE-20260911-002.json   # 先: Object を成立させる create
+./scripts/signity append ledger/pending/DE-20260911-001.json   # 後: その Object への方針
+```
+
+`-002` が Decision Object `do_20260911_viberush_jp` を成立させる `create` Event、
+`-001` がその Object に対する方針です。逆順に追記すると、存在しない Object への
+変更が先に記録され、下記「未解決の課題 1」と同じ状態を新しい Object で作ることになります。
+
+`-002` は `before: null` から初期状態を設定するため、strict モードの投影が成立します。
+`-001` の `changes` もすべて `before: null` で、`-002` が `/marketing/*` を設定しないことと整合します。
+
+### 承認前に人間が確定すること
+
+| Event | 項目 | 現在の値 | 理由 |
+| --- | --- | --- | --- |
+| 両方 | `occurred_at` / `effective_at` | Draft 作成時刻 / `null` | 実際に決定した時刻と効力発生時刻は承認時に記入する |
+| -002 | `primary_object_id` | `do_20260911_viberush_jp` | ULID を捏造せず日付ベースにした暫定 ID。発行規則の確定は別の決定 |
+| -002 | `/lifecycle/stage` | `launched` | stage の語彙が未定義。DO-0001 は `concept` を使っている |
+| -002 | 傘下関係 | 状態に含めず | jp.VibeRush が Signity 傘下かは未決定のため `umbrella_brand` を入れていない |
+
+承認後に `docs/domain/decision-object-0002.md` を作成し、`docs/domain/README.md` の
+Decision Object 一覧に追記してください（`docs/README.md` の一方向フローのとおり、
+確定文書への反映は承認後です）。
 
 根拠は `docs/journal/2026/09/2026-09-11.md` に URL と確認日付きで残しています。
-`docs/evidence/` への固定は未実施のため `evidence_refs` は空です。
+`docs/evidence/` への固定は未実施のため、両 Event の `evidence_refs` は空です。
 
 ## 取り込み時に補った値
 
