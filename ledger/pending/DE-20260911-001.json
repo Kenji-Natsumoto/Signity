@@ -1,0 +1,122 @@
+{
+  "affected_object_ids": [],
+  "approved_at": null,
+  "approved_by": [],
+  "changes": [
+    {
+      "after": "x_japanese_account",
+      "before": null,
+      "change_note": "日本語圏で個人開発・AI アプリ作者の文化が同居しているのは X であるため、Building in Public の主戦場を X の日本語アカウントに置く",
+      "path": "/marketing/building_in_public_primary_channel"
+    },
+    {
+      "after": {
+        "experiment": 10,
+        "linkedin": 10,
+        "note": 20,
+        "x_japanese": 60
+      },
+      "before": null,
+      "change_note": "百分率。LinkedIn 日本をゼロにすると学習機会も失うため 10 を残す。実験枠は YouTube ショート等の非エンジニア層向け検証に充てる",
+      "path": "/marketing/channel_allocation_percent"
+    },
+    {
+      "after": "既存の個人アカウントに日本語のセカンダリ言語プロフィールを追加し、会社ページを日本語化する。日本語版の個人アカウントは新規開設しない",
+      "before": null,
+      "change_note": "LinkedIn は 1 人 1 アカウント・実名を要件とし重複プロフィールを許可していない。新規開設は英語圏の本体アカウントを失うリスクを伴う",
+      "path": "/marketing/linkedin_jp_account_policy"
+    },
+    {
+      "after": "週あたりの新規掲載プロダクト数",
+      "before": null,
+      "change_note": "ディレクトリの立ち上げ期にボトルネックとなるのは供給サイド（掲載者）であるため、閲覧数ではなく掲載数を北極星指標にする",
+      "path": "/marketing/north_star_metric"
+    },
+    {
+      "after": "掲載者の成果を主役にする（週次ランキングの紹介を軸にする）",
+      "before": null,
+      "change_note": "英語圏の MRR 公開・ハッスル調は日本語圏でそのままでは機能しないという観察にもとづく。掲載者が自分で拡散する動機を作る",
+      "path": "/marketing/building_in_public_tone"
+    }
+  ],
+  "corrects_event_id": null,
+  "decision_type": "create",
+  "display_id": "DE-20260911-001",
+  "effective_at": null,
+  "event_id": "de_20260911_viberush_jp_channel_policy",
+  "event_kind": "decision",
+  "evidence_refs": [],
+  "expected_outcome": {
+    "review_due_at": "2026-09-25T23:59:59+09:00",
+    "success_metrics": [
+      "週あたりの新規掲載プロダクト数",
+      "チャネル別の掲載者獲得数（UTM で計測）",
+      "チャネル別の掲載者あたり投稿本数（労力対効果）"
+    ],
+    "summary": "規約違反のリスクを負わずに、非エンジニアの AI アプリ作者が実際に集まっている場所で掲載者を獲得できる状態になる"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "canonical-json-v1",
+    "content_hash": "pending",
+    "previous_event_hash": null
+  },
+  "model_run_refs": [
+    "mr_20260911_claude_code_penta_session"
+  ],
+  "occurred_at": "2026-09-11T15:39:07+09:00",
+  "primary_object_id": "do_20260911_viberush_jp",
+  "proposed_by": [
+    "agent_claude"
+  ],
+  "rationale": {
+    "assumptions": [
+      "日本語圏の個人開発・AI アプリ作者コミュニティの中心は X である",
+      "LinkedIn 日本の約 500 万人のうち、非エンジニアの AI アプリ作者の密度は X より低い（定量的な裏付けは取れていない）",
+      "LinkedIn 日本は日本語の良質コンテンツの供給が薄く、投稿あたりのオーガニックリーチが相対的に高い",
+      "ディレクトリの立ち上げ期にボトルネックになるのは掲載者（供給サイド）であり、閲覧者（需要サイド）ではない",
+      "primary_object_id は未発行の暫定値である。jp.VibeRush を Decision Object として発行するかは未決定（docs/journal/2026/09/2026-09-11.md の候補 4）"
+    ],
+    "confidence": 0.7,
+    "decision_question": "jp.viberush.io の Building in Public のために、日本語版の LinkedIn アカウントを新規開設すべきか",
+    "facts": [
+      "LinkedIn の利用規約とプロフェッショナルコミュニティポリシーは、アカウントを 1 人 1 つ・実名とし、重複プロフィールの作成を許可していない（2026-09-11 に一次情報を確認）",
+      "LinkedIn は 1 つのアカウントに複数言語のプロフィールを持たせる機能を公式に提供しており、自動翻訳は行われない（公式ヘルプ、2026-09-11 確認）",
+      "日本国内の LinkedIn 登録者は 400 万人以上（2024 年 8 月・LinkedIn 公式）、第三者推計では 2026 年 Q1 に約 500 万人",
+      "日本国内の X の利用者は 6,800 万人以上（2025 年 5 月）、note の累計会員数は 1,248 万人（2026 年 5 月）",
+      "jp.viberush.io は掲載無料・週次ランキング付きの「非エンジニアのための AI アプリ PR プラットフォーム」として公開されている（2026-09-11 にサイトを確認）",
+      "英語圏の VibeRush.io では英語の LinkedIn 個人アカウントが集客の中心になっている（オーナー申告）"
+    ],
+    "human_value_judgments": [
+      "プラットフォームの規約に違反しないことを、短期の集客機会より優先する",
+      "英語圏で機能している既存アカウントを失うリスクを取らない",
+      "媒体そのものではなく、その媒体に同居している文化の所在を基準にチャネルを選ぶ",
+      "発信の主語を自分の指標ではなく掲載者の成果に置く"
+    ],
+    "options_considered": [
+      "日本語版の LinkedIn 個人アカウントを新規に開設する",
+      "LinkedIn 日本を使わず、X と note のみに集中する",
+      "既存の個人アカウントを二言語化し、X を主戦場として LinkedIn 日本には薄く張る"
+    ],
+    "revisit_triggers": [
+      "2 週間のスモークテストで LinkedIn 日本の掲載者獲得効率が X を上回った場合",
+      "供給サイドの立ち上げが完了し、需要サイド（AI アプリを探す企業担当者）の獲得がボトルネックになった場合",
+      "LinkedIn の利用規約が複数アカウントの扱いについて変更された場合",
+      "LinkedIn 日本語圏に作り手コミュニティの文化が形成された場合",
+      "英語と日本語の混在投稿によって英語側のリーチが明確に低下した場合"
+    ],
+    "summary": "日本語版 LinkedIn 個人アカウントの新規開設は行わない。LinkedIn が 1 人 1 アカウントを要件とし重複プロフィールを許可していないため、新規開設は規約違反であり、制限を受けたときに失うのは集客の中心である英語圏の本体アカウントである。リスクとリターンが非対称である。代わりに、既存アカウントへ日本語のセカンダリプロフィールを追加し会社ページを日本語化したうえで、Building in Public の主戦場は X の日本語アカウントに置く。英語圏 LinkedIn で機能しているのは媒体そのものではなく、そこに build in public の文化が同居しているという事情であり、日本語圏でその文化が所在しているのは X である。LinkedIn 日本は供給が薄く成長しているため、週 1 の日本語投稿で薄く張り、需要サイド（B2B）開拓のフェーズ 2 の武器として位置づける。",
+    "tradeoffs": [
+      "1 つのアカウントで英語と日本語を混在投稿するため、フォロワーとの言語不一致でフィード上の関連性が下がる可能性がある",
+      "LinkedIn 日本への配分を 10% に留めるため、この市場で先行者になる機会は小さくなる",
+      "X を主戦場にするため、B2B の需要サイド開拓は後回しになる",
+      "チャネル配分は検証前の仮説であり、実測値にもとづいていない"
+    ]
+  },
+  "recorded_at": "2026-09-11T15:39:07+09:00",
+  "schema_version": "0.3",
+  "signatures": [],
+  "status": "draft",
+  "supersedes_event_id": null,
+  "title": "jp.VibeRush の Building in Public チャネル方針を確定する（LinkedIn 日本は新規アカウントを作らず、X を主戦場にする）"
+}

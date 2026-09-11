@@ -35,3 +35,4 @@ docs/journal/YYYY/MM/YYYY-MM-DD.md
 | --- | --- |
 | [2026-07-28](2026/07/2026-07-28.md) | ドキュメント階層の確立、Drive 設計文書と v0.3 バンドルの取り込み |
 | [2026-07-29](2026/07/2026-07-29.md) | canonical-json-v1 の確定、Ledger とハッシュチェーンの稼働 |
+| [2026-09-11](2026/09/2026-09-11.md) | jp.VibeRush の Building in Public チャネル方針の検討（LinkedIn 日本の扱い） |

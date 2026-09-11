@@ -49,9 +49,21 @@ ledger/
 | --- | --- | --- |
 | DE-20260728-001 | Signity のドキュメント階層を確立する | 承認待ち |
 | DE-20260728-002 | canonical-json-v1 の正規化規則を確定・凍結する | 承認待ち |
+| DE-20260911-001 | jp.VibeRush の Building in Public チャネル方針を確定する | 承認待ち |
 
 承認は人間が行います。`status` を `approved` にし、`approved_at` と `approved_by` を
 記入したうえで `./scripts/signity append` してください。
+
+`DE-20260911-001` は承認前に次の 2 点を人間が確定してください。
+`ledger/pending/` の Draft であり、チェーンには未接続です。
+
+| 項目 | 現在の値 | 確定が必要な理由 |
+| --- | --- | --- |
+| `primary_object_id` | `do_20260911_viberush_jp` | jp.VibeRush は Decision Object として未発行。`docs/domain/` には DO-0001 のみが存在する |
+| `occurred_at` / `effective_at` | Draft 作成時刻 / `null` | 実際に方針を決定した時刻と効力発生時刻は承認時に記入する |
+
+根拠は `docs/journal/2026/09/2026-09-11.md` に URL と確認日付きで残しています。
+`docs/evidence/` への固定は未実施のため `evidence_refs` は空です。
 
 ## 取り込み時に補った値
 
